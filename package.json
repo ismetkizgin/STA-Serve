@@ -1,0 +1,34 @@
+{
+  "name": "sta-serve",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "start:dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ismetkizgin/STA-Serve.git"
+  },
+  "author": "İsmet Kizgin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ismetkizgin/STA-Serve/issues"
+  },
+  "homepage": "https://github.com/ismetkizgin/STA-Serve#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "path": "^0.12.7",
+    "require-directory": "^2.1.1",
+    "twig": "^1.15.1",
+    "validator": "^13.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
