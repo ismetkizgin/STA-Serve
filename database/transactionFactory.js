@@ -3,7 +3,7 @@ const transactions = require('./transactions');
 class TransactionFactory {
     constructor() { }
 
-    creating(provider, args) {
+    static creating(provider, args) {
         let transaction = transactions[provider];
         if (!transaction)
             throw new Error('Database transaction is not found. Database transaction provider: ' + provider);

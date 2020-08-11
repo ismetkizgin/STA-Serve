@@ -1,9 +1,10 @@
 const mysql = require('mysql');
+const dataContext = require('../base/dataContext');
 
-class MysqlDataContext {
+class MysqlDataContext extends dataContext {
     constructor() { }
 
-    static createPool() {
+    static connection() {
         return mysql.createPool({
             host: process.env.DB_HOST,
             user: process.env.DB_USER,

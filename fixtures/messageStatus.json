@@ -8,5 +8,15 @@
             "status": 417,
             "message": "No token provided."
         }
+    },
+    "validateMessage": {
+        "status": 417,
+        "message": "Must have correct data entry."
+    },
+    "userMessages": {
+        "Not_Found": {
+            "status": 404,
+            "message": "There is no such user !"
+        }
     }
 }
