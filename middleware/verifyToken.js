@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { tokenMessage } = require('../fixtures/messageStatus.json');
+const { tokenMessages } = require('../fixtures/messageStatus.json');
 
 class VerifyToken {
     constructor() { }
@@ -10,7 +10,7 @@ class VerifyToken {
             jwt.verify(token, req.app.get('api_key'), (err, decoded) => {
 
                 if (err) {
-                    res.status(tokenMessage.Token_Invalid.status).json({ message: tokenMessage.Token_Invalid.message });
+                    res.status(tokenMessages.Token_Invalid.status).json({ message: tokenMessages.Token_Invalid.message });
                 } else {
                     req.decode = decoded,
                         next();
@@ -18,7 +18,7 @@ class VerifyToken {
             });
 
         } else {
-            res.status(tokenMessage.Token_Null.status).json({ message: tokenMessage.Token_Null.message });
+            res.status(tokenMessages.Token_Null.status).json({ message: tokenMessages.Token_Null.message });
         }
     }
 }
