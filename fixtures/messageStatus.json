@@ -1,22 +1,37 @@
 {
-    "tokenMessage": {
-        "Token_Invalid": {
-            "status": 407,
-            "message": "Failed to authentication token."
-        },
-        "Token_Null": {
-            "status": 417,
-            "message": "No token provided."
-        }
+  "tokenMessage": {
+    "Token_Invalid": {
+      "status": 407,
+      "message": "Failed to authentication token."
     },
-    "validateMessage": {
-        "status": 417,
-        "message": "Must have correct data entry."
-    },
-    "userMessages": {
-        "Not_Found": {
-            "status": 404,
-            "message": "There is no such user !"
-        }
+    "Token_Null": {
+      "status": 417,
+      "message": "No token provided."
     }
+  },
+  "validateMessage": {
+    "status": 417,
+    "message": "Must have correct data entry."
+  },
+  "userMessages": {
+    "login": {
+      "Not_Found": {
+        "status": 404,
+        "message": "There is no such user !"
+      }
+    },
+    "signup": {
+      "Ok": {
+        "message": "User registration has taken place."
+      },
+      "Internal_Server_Error": {
+        "status": 500,
+        "message": "Error while registering user !"
+      },
+      "Conflict": {
+          "status": 409,
+          "message": "There is such user."
+      }
+    }
+  }
 }

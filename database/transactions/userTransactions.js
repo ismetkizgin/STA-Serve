@@ -12,10 +12,26 @@ class UserTransactions {
                     if (result.length)
                         resolve(result[0]);
                     else
-                        reject(userMessages.Not_Found);
+                        reject(userMessages.login.Not_Found);
                 }
                 else
                     reject({ status: 500, message: error.message });
+            });
+        });
+    }
+
+    async signUpAsync(values) {
+        return new Promise((resolve, reject) => {
+            this.datacontext.query(`INSERT INTO tblUser SET ?`, values, (error, result) => {
+                if (!error) {
+                    if (result.affectedRows)
+                        resolve(userMessages.signup.Ok);
+                    else
+                        reject(userMessages.signup.Internal_Server_Error)
+                }
+                else {
+                    reject(error.errno == 1062 ? userMessages.signup.Conflict : { status: 500, message: error.message });
+                }
             });
         });
     }
