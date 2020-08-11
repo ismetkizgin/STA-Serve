@@ -73,10 +73,10 @@ CREATE TABLE `tblMartyrImage` (
 -- --------------------------------------------------------
 
 --
--- Tablo için tablo yapısı `tblsUser`
+-- Tablo için tablo yapısı `tblUser`
 --
 
-CREATE TABLE `tblsUser` (
+CREATE TABLE `tblUser` (
   `UserID` int NOT NULL,
   `UserFirstName` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
   `UserLastName` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
@@ -122,9 +122,9 @@ ALTER TABLE `tblMartyrImage`
   ADD PRIMARY KEY (`MartyrImageID`);
 
 --
--- Tablo için indeksler `tblsUser`
+-- Tablo için indeksler `tblUser`
 --
-ALTER TABLE `tblsUser`
+ALTER TABLE `tblUser`
   ADD PRIMARY KEY (`UserID`);
 
 --
@@ -156,9 +156,9 @@ ALTER TABLE `tblMartyrImage`
   MODIFY `MartyrImageID` int NOT NULL AUTO_INCREMENT;
 
 --
--- Tablo için AUTO_INCREMENT değeri `tblsUser`
+-- Tablo için AUTO_INCREMENT değeri `tblUser`
 --
-ALTER TABLE `tblsUser`
+ALTER TABLE `tblUser`
   MODIFY `UserID` int NOT NULL AUTO_INCREMENT;
 
 --
