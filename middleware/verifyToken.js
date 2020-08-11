@@ -4,7 +4,7 @@ const { tokenMessage } = require('../fixtures/messageStatus.json');
 class VerifyToken {
     constructor() { }
 
-    static verifyToken = (req, res, next) => {
+    static tokenControl = (req, res, next) => {
         const token = req.headers['token'] || req.body.token || req.query.token
         if (token) {
             jwt.verify(token, req.app.get('api_key'), (err, decoded) => {
