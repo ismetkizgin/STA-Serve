@@ -1,5 +1,5 @@
 {
-  "tokenMessage": {
+  "tokenMessages": {
     "Token_Invalid": {
       "status": 407,
       "message": "Failed to authentication token."
