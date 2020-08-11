@@ -1,8 +1,9 @@
 const router = require('express')();
+const jwt = require('jsonwebtoken');
 const TransactionsFactory = require('../database/transactionFactory');
 const userTransactions = TransactionsFactory.creating('userTransactions');
-const { authValidator } = require('../middleware').validator;
-const jwt = require('jsonwebtoken');
+const { validator, verifyToken } = require('../middleware');
+const authValidator = validator.authValidator;
 
 router.post('/login', authValidator.login, async (req, res) => {
     try {
@@ -15,7 +16,7 @@ router.post('/login', authValidator.login, async (req, res) => {
     }
 });
 
-router.post('/sign-up', authValidator.signUp, async (req, res) => {
+router.post('/sign-up', verifyToken.tokenControl, authValidator.signUp, async (req, res) => {
     try {
         const result = await userTransactions.signUpAsync(req.body);
         res.json(result);
