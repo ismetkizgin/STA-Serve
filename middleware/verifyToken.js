@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
 const { tokenMessages } = require('../fixtures/messageStatus.json');
+const { authorization } = require('./');
 
 class VerifyToken {
     constructor() { }
 
-    static tokenControl = (req, res, next) => {
+    static async tokenControl(req, res, next) {
         const token = req.headers['token'] || req.body.token || req.query.token
         if (token) {
             jwt.verify(token, req.app.get('api_key'), (err, decoded) => {
@@ -12,8 +13,8 @@ class VerifyToken {
                 if (err) {
                     res.status(tokenMessages.Token_Invalid.status).json({ message: tokenMessages.Token_Invalid.message });
                 } else {
-                    req.decode = decoded,
-                        next();
+                    req.decode = decoded;
+                    next();
                 }
             });
 
