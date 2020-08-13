@@ -29,7 +29,7 @@ router.post('/sign-up', tokenControl, authValidator.signUp, authControl, async (
 
 router.delete('/account-delete', tokenControl, authValidator.accountDelete, authControl, async (req, res) => {
     try {
-        const result = await userTransactions.accountDelete(req.body);
+        const result = await userTransactions.accountDelete(req.body.UserIdentityNo);
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });

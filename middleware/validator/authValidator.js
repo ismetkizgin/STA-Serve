@@ -30,7 +30,7 @@ class AuthValidator {
 
     static accountDelete(req, res, next) {
         const body = req.body;
-        if (validator.isInt(body.UserID))
+        if (validator.isInt(body.UserIdentityNo))
             next();
         else
             res.status(validateMessage.status).json({ message: validateMessage.message });

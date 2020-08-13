@@ -7,12 +7,16 @@ class Authorization {
     static async authControl(req, res, next) {
         try {
             const decode = req.decode;
-            if(req.body.UserIdentityNo === req.decode.UserIdentityNo)
+            console.log(req.body.UserIdentityNo, req.decode.UserIdentityNo)
+            if (req.body.UserIdentityNo == req.decode.UserIdentityNo) {
                 next();
-            const UserStatusTransactionName = req.originalUrl.replace('/', '');
-            const result = await authTransactions.authFindAsync({ UserStatusID: decode.UserStatusID, UserStatusTransactionName: UserStatusTransactionName });
-            if (result)
-                next();
+            }
+            else {
+                const UserStatusTransactionName = req.originalUrl.replace('/', '');
+                const result = await authTransactions.authFindAsync({ UserStatusID: decode.UserStatusID, UserStatusTransactionName: UserStatusTransactionName });
+                if (result)
+                    next();
+            }
         } catch (error) {
             res.status(error.status || 500).json({ message: error.message });
         }
