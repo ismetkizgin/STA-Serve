@@ -29,9 +29,24 @@
         "message": "Error while registering user !"
       },
       "Conflict": {
-          "status": 409,
-          "message": "There is such user."
+        "status": 409,
+        "message": "There is such user."
       }
+    },
+    "accountDelete": {
+      "Ok": {
+        "message": "Deletion succeeded."
+      },
+      "Gone": {
+        "status": 410,
+        "message": "There is no such user."
+      }
+    }
+  },
+  "authMessages": {
+    "Unauthorized": {
+      "status": 401,
+      "message": "Unauthorized transaction."
     }
   }
 }

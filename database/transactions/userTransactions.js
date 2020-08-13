@@ -35,6 +35,22 @@ class UserTransactions {
             });
         });
     }
+
+    async accountDelete(UserID) {
+        return new Promise((resolve, reject) => {
+            this.datacontext.query(`DELETE FROM tblUser WHERE UserID=?`, [UserID], (error, result) => {
+                if (!error) {
+                    if (result.affectedRows)
+                        resolve(userMessages.accountDelete.Ok);
+                    else
+                        reject(userMessages.accountDelete.Gone);
+                }
+                else {
+                    reject({ status: 500, message: error.message });
+                }
+            });
+        });
+    }
 }
 
 module.exports = UserTransactions;

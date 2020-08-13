@@ -22,8 +22,15 @@ class AuthValidator {
             && !validator.isEmpty(body.UserPassword)
             && validator.isInt(body.InstitutionID)
             && validator.isInt(body.UserStatusID);
-        
-        if(state)
+        if (state)
+            next();
+        else
+            res.status(validateMessage.status).json({ message: validateMessage.message });
+    }
+
+    static accountDelete(req, res, next) {
+        const body = req.body;
+        if (validator.isInt(body.UserID))
             next();
         else
             res.status(validateMessage.status).json({ message: validateMessage.message });
