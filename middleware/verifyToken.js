@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const { tokenMessages } = require('../fixtures/messageStatus.json');
-const { authorization } = require('./');
 
 class VerifyToken {
     constructor() { }
