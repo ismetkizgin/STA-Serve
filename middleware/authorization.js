@@ -7,7 +7,6 @@ class Authorization {
     static async authControl(req, res, next) {
         try {
             const decode = req.decode;
-            console.log(req.body.UserIdentityNo, req.decode.UserIdentityNo)
             if (req.body.UserIdentityNo == req.decode.UserIdentityNo) {
                 next();
             }
