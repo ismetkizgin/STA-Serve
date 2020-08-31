@@ -7,6 +7,9 @@
     "Token_Null": {
       "status": 417,
       "message": "No token provided."
+    },
+    "Token_Control": {
+      "message": "Valid Token."
     }
   },
   "validateMessage": {
