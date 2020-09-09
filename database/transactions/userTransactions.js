@@ -2,8 +2,9 @@ const { mysqlDataContext } = require('../dataContexts');
 const { userMessages } = require('../../fixtures/messageStatus.json');
 
 class UserTransactions {
-    constructor() { }
-    datacontext = mysqlDataContext.connection();
+    constructor() {
+        this.datacontext = mysqlDataContext.connection();
+    }
 
     async loginAsync(values) {
         return new Promise((resolve, reject) => {
