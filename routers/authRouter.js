@@ -1,6 +1,5 @@
 const router = require('express')();
 const jwt = require('jsonwebtoken');
-const { tokenMessages } = require('../fixtures/messageStatus.json');
 const TransactionsFactory = require('../database/transactionFactory');
 const { validator, verifyToken, authorization } = require('../middleware');
 const userTransactions = TransactionsFactory.creating('userTransactions');
@@ -37,8 +36,8 @@ router.delete('/account-delete', tokenControl, authValidator.accountDelete, auth
     }
 });
 
-router.get('/token-ping', tokenControl, async (req, res) => {
-    res.json(tokenMessages.Token_Control);
+router.get('/token-decode', tokenControl, async (req, res) => {
+    res.json(req.decode);
 });
 
 module.exports = router;
