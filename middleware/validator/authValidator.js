@@ -35,6 +35,17 @@ class AuthValidator {
         else
             res.status(validateMessage.status).json({ message: validateMessage.message });
     }
+
+    static userList(req, res, next) {
+        const body = req.body;
+        const state = (validator.isEmpty(body.limit) | validator.isInt(body.limit))
+            && (validator.isEmpty(body.offset) | validator.isInt(body.offset));
+        const offsetState = body.offset == null ? true : !validator.isEmpty(body.limit);
+        if (state & offsetState)
+            next();
+        else
+            res.status(validateMessage.status).json({ message: validateMessage.message });
+    }
 }
 
 module.exports = AuthValidator;

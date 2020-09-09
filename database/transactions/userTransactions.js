@@ -1,14 +1,16 @@
 const { mysqlDataContext } = require('../dataContexts');
 const { userMessages } = require('../../fixtures/messageStatus.json');
+const { helperTransactions } = require('../utils/');
 
 class UserTransactions {
     constructor() {
-        this.datacontext = mysqlDataContext.connection();
+        this._datacontext = mysqlDataContext.connection();
+        this._helperTransactions = new helperTransactions(this._datacontext);
     }
 
     async loginAsync(values) {
         return new Promise((resolve, reject) => {
-            this.datacontext.query(`SELECT * FROM tblUser where UserIdentityNo=? and UserPassword=?`, [values.UserIdentityNo, values.UserPassword], (error, result) => {
+            this._datacontext.query(`SELECT * FROM tblUser where UserIdentityNo=? and UserPassword=?`, [values.UserIdentityNo, values.UserPassword], (error, result) => {
                 if (!error) {
                     if (result.length)
                         resolve(result[0]);
@@ -23,7 +25,7 @@ class UserTransactions {
 
     async signUpAsync(values) {
         return new Promise((resolve, reject) => {
-            this.datacontext.query(`INSERT INTO tblUser SET ?`, values, (error, result) => {
+            this._datacontext.query(`INSERT INTO tblUser SET ?`, values, (error, result) => {
                 if (!error) {
                     if (result.affectedRows)
                         resolve(userMessages.signup.Ok);
@@ -39,7 +41,7 @@ class UserTransactions {
 
     async accountDelete(UserIdentityNo) {
         return new Promise((resolve, reject) => {
-            this.datacontext.query(`DELETE FROM tblUser WHERE UserIdentityNo=1`, [UserIdentityNo], (error, result) => {
+            this._datacontext.query(`DELETE FROM tblUser WHERE UserIdentityNo=1`, [UserIdentityNo], (error, result) => {
                 if (!error) {
                     if (result.affectedRows)
                         resolve(userMessages.accountDelete.Ok);
@@ -51,6 +53,10 @@ class UserTransactions {
                 }
             });
         });
+    }
+
+    async userList(values) {
+        return this._helperTransactions.getDataList('tblUser', userMessages.userList.Not_Found, values);
     }
 }
 

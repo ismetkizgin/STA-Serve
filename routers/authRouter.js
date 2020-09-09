@@ -40,4 +40,13 @@ router.get('/token-decode', tokenControl, async (req, res) => {
     res.json(req.decode);
 });
 
+router.get('/user', tokenControl, authValidator.userList, authControl, async (req, res) => {
+    try {
+        const result = await userTransactions.userList(req.body);
+        res.json(result);
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message });
+    }
+});
+
 module.exports = router;
