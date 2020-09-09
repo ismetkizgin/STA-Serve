@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost:3306
--- Üretim Zamanı: 10 Ağu 2020, 19:59:41
+-- Üretim Zamanı: 09 Eyl 2020, 21:51:51
 -- Sunucu sürümü: 8.0.21-0ubuntu0.20.04.4
 -- PHP Sürümü: 7.4.7
 
@@ -88,6 +88,13 @@ CREATE TABLE `tblUser` (
   `UserStatusID` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
+--
+-- Tablo döküm verisi `tblUser`
+--
+
+INSERT INTO `tblUser` (`UserID`, `UserFirstName`, `UserLastName`, `UserPassword`, `UserIdentityNo`, `UserEmail`, `UserPhone`, `InstitutionID`, `UserStatusID`) VALUES
+(15, 'İsmet', 'Kizgin', 'password', 1, 'ismetkizgin@hotmail.com', '0533834430', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -98,6 +105,57 @@ CREATE TABLE `tblUserStatus` (
   `UserStatusID` int NOT NULL,
   `UserStatusName` varchar(100) COLLATE utf8_turkish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+--
+-- Tablo döküm verisi `tblUserStatus`
+--
+
+INSERT INTO `tblUserStatus` (`UserStatusID`, `UserStatusName`) VALUES
+(1, 'Root'),
+(2, 'Admin'),
+(3, 'User');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `tblUserStatusTransaction`
+--
+
+CREATE TABLE `tblUserStatusTransaction` (
+  `UserStatusTransactionID` int NOT NULL,
+  `UserStatusTransactionName` varchar(100) COLLATE utf8_turkish_ci NOT NULL,
+  `UserStatusID` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+--
+-- Tablo döküm verisi `tblUserStatusTransaction`
+--
+
+INSERT INTO `tblUserStatusTransaction` (`UserStatusTransactionID`, `UserStatusTransactionName`, `UserStatusID`) VALUES
+(1, 'account-delete', 1),
+(2, 'sign-up', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Görünüm yapısı durumu `vwAuth`
+-- (Asıl görünüm için aşağıya bakın)
+--
+CREATE TABLE `vwAuth` (
+`UserStatusID` int
+,`UserStatusName` varchar(100)
+,`UserStatusTransactionID` int
+,`UserStatusTransactionName` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Görünüm yapısı `vwAuth`
+--
+DROP TABLE IF EXISTS `vwAuth`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwAuth`  AS  select `U`.`UserStatusID` AS `UserStatusID`,`U`.`UserStatusName` AS `UserStatusName`,`T`.`UserStatusTransactionID` AS `UserStatusTransactionID`,`T`.`UserStatusTransactionName` AS `UserStatusTransactionName` from (`tblUserStatus` `U` join `tblUserStatusTransaction` `T` on((`U`.`UserStatusID` = `T`.`UserStatusID`))) ;
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -113,25 +171,37 @@ ALTER TABLE `tblInstitution`
 -- Tablo için indeksler `tblMartyr`
 --
 ALTER TABLE `tblMartyr`
-  ADD PRIMARY KEY (`MartyrID`);
+  ADD PRIMARY KEY (`MartyrID`),
+  ADD KEY `InstitutionID` (`InstitutionID`);
 
 --
 -- Tablo için indeksler `tblMartyrImage`
 --
 ALTER TABLE `tblMartyrImage`
-  ADD PRIMARY KEY (`MartyrImageID`);
+  ADD PRIMARY KEY (`MartyrImageID`),
+  ADD KEY `MartyrID` (`MartyrID`);
 
 --
 -- Tablo için indeksler `tblUser`
 --
 ALTER TABLE `tblUser`
-  ADD PRIMARY KEY (`UserID`);
+  ADD PRIMARY KEY (`UserID`),
+  ADD UNIQUE KEY `UserIdentityNo` (`UserIdentityNo`),
+  ADD KEY `UserStatusID` (`UserStatusID`),
+  ADD KEY `InstitutionID` (`InstitutionID`);
 
 --
 -- Tablo için indeksler `tblUserStatus`
 --
 ALTER TABLE `tblUserStatus`
   ADD PRIMARY KEY (`UserStatusID`);
+
+--
+-- Tablo için indeksler `tblUserStatusTransaction`
+--
+ALTER TABLE `tblUserStatusTransaction`
+  ADD PRIMARY KEY (`UserStatusTransactionID`),
+  ADD KEY `UserStatusID` (`UserStatusID`);
 
 --
 -- Dökümü yapılmış tablolar için AUTO_INCREMENT değeri
@@ -159,13 +229,53 @@ ALTER TABLE `tblMartyrImage`
 -- Tablo için AUTO_INCREMENT değeri `tblUser`
 --
 ALTER TABLE `tblUser`
-  MODIFY `UserID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `UserID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblUserStatus`
 --
 ALTER TABLE `tblUserStatus`
-  MODIFY `UserStatusID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `UserStatusID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `tblUserStatusTransaction`
+--
+ALTER TABLE `tblUserStatusTransaction`
+  MODIFY `UserStatusTransactionID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Dökümü yapılmış tablolar için kısıtlamalar
+--
+
+--
+-- Tablo kısıtlamaları `tblInstitution`
+--
+ALTER TABLE `tblInstitution`
+  ADD CONSTRAINT `tblInstitution_ibfk_1` FOREIGN KEY (`InstitutionID`) REFERENCES `tblUser` (`InstitutionID`);
+
+--
+-- Tablo kısıtlamaları `tblMartyr`
+--
+ALTER TABLE `tblMartyr`
+  ADD CONSTRAINT `tblMartyr_ibfk_1` FOREIGN KEY (`InstitutionID`) REFERENCES `tblInstitution` (`InstitutionID`);
+
+--
+-- Tablo kısıtlamaları `tblMartyrImage`
+--
+ALTER TABLE `tblMartyrImage`
+  ADD CONSTRAINT `tblMartyrImage_ibfk_1` FOREIGN KEY (`MartyrID`) REFERENCES `tblMartyr` (`MartyrID`) ON DELETE CASCADE;
+
+--
+-- Tablo kısıtlamaları `tblUser`
+--
+ALTER TABLE `tblUser`
+  ADD CONSTRAINT `tblUser_ibfk_1` FOREIGN KEY (`UserStatusID`) REFERENCES `tblUserStatus` (`UserStatusID`);
+
+--
+-- Tablo kısıtlamaları `tblUserStatusTransaction`
+--
+ALTER TABLE `tblUserStatusTransaction`
+  ADD CONSTRAINT `tblUserStatusTransaction_ibfk_1` FOREIGN KEY (`UserStatusID`) REFERENCES `tblUserStatus` (`UserStatusID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
