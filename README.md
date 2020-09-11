@@ -18,6 +18,9 @@ To publish the project on Docker, go to the project directory and write the foll
   # install docker database backup
   $ cat <sql_filename> | docker exec -i <container_name> mysql -u root --password=root <database_name>
 
+  ## Example
+  $ cat ./dbBackup/sta_db.sql | docker exec -i sta-db mysql -u root --password=root sta_db
+  
   # compile docker files
   $ docker-compose build
   
@@ -48,6 +51,4 @@ As a developer, to start the project and do the test operations, first go to the
   $ npm run start:dev
   
 ```
-#Example
 
-cat ./dbBackup/sta_db.sql | docker exec -i sta-db mysql -u root --password=root sta_db
