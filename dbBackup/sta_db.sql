@@ -155,7 +155,7 @@ CREATE TABLE `vwAuth` (
 --
 DROP TABLE IF EXISTS `vwAuth`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwAuth`  AS  select `U`.`UserStatusID` AS `UserStatusID`,`U`.`UserStatusName` AS `UserStatusName`,`T`.`UserStatusTransactionID` AS `UserStatusTransactionID`,`T`.`UserStatusTransactionName` AS `UserStatusTransactionName` from (`tblUserStatus` `U` join `tblUserStatusTransaction` `T` on((`U`.`UserStatusID` = `T`.`UserStatusID`))) ;
+CREATE VIEW `vwAuth`  AS  select `U`.`UserStatusID` AS `UserStatusID`,`U`.`UserStatusName` AS `UserStatusName`,`T`.`UserStatusTransactionID` AS `UserStatusTransactionID`,`T`.`UserStatusTransactionName` AS `UserStatusTransactionName` from (`tblUserStatus` `U` join `tblUserStatusTransaction` `T` on((`U`.`UserStatusID` = `T`.`UserStatusID`))) ;
 
 --
 -- Dökümü yapılmış tablolar için indeksler
