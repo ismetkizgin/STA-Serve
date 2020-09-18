@@ -42,7 +42,7 @@ router.get('/token-decode', tokenControl, async (req, res) => {
 
 router.get('/user', tokenControl, authValidator.userList, authControl, async (req, res) => {
     try {
-        const result = await userTransactions.userList(req.body);
+        const result = await userTransactions.list(req.body);
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
