@@ -77,6 +77,15 @@
         "status": 500,
         "message": "An error occurred while updating institution information."
       }
+    },
+    "delete": {
+      "Ok": {
+        "message": "Institution information has been deleted."
+      },
+      "Gone": {
+        "status": 410,
+        "message": "There is no such institution."
+      }
     }
   }
 }

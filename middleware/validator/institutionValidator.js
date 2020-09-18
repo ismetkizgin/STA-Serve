@@ -18,7 +18,7 @@ class InstitutionValidator {
             res.status(validateMessage.status).json({ message: validateMessage.message });
         }
     }
-    
+
     static async update(req, res, next) {
         try {
             await joi.object({
@@ -28,6 +28,17 @@ class InstitutionValidator {
                 InstitutionDistrict: joi.string().min(3).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı]+$')).required(),
                 InstitutionEmail: joi.string().email().required(),
                 InstitutionPhone: joi.string().min(11).max(11).pattern(new RegExp('^[0-9]+$')).required(),
+            }).validateAsync(req.body);
+            next();
+        } catch (error) {
+            res.status(validateMessage.status).json({ message: validateMessage.message });
+        }
+    }
+
+    static async delete(req, res, next) {
+        try {
+            await joi.object({
+                InstitutionID: joi.number().min(1).required(),
             }).validateAsync(req.body);
             next();
         } catch (error) {

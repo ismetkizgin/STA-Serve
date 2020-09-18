@@ -37,6 +37,22 @@ class InstitutionTransactions {
             });
         });
     }
+
+    async deleteAsync(InstitutionID) {
+        return new Promise((resolve, reject) => {
+            this._datacontext.query(`DELETE FROM tblInstitution WHERE InstitutionID=?`, [InstitutionID], (error, result) => {
+                if (!error) {
+                    if (result.affectedRows)
+                        resolve(institutionMessage.delete.Ok);
+                    else
+                        reject(institutionMessage.delete.Gone)
+                }
+                else {
+                    reject({ status: 500, message: error.message });
+                }
+            });
+        });
+    }
 }
 
 module.exports = InstitutionTransactions;
