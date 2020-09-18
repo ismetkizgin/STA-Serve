@@ -1,50 +1,62 @@
-const { validator } = require('../../utils');
 const { validateMessage } = require('../../fixtures/messageStatus.json');
+const joi = require('joi');
 
 class AuthValidator {
     constructor() { }
 
-    static login(req, res, next) {
-        const body = req.body;
-        if (validator.isInt(body.UserIdentityNo) && !validator.isEmpty(body.UserPassword))
+    static async login(req, res, next) {
+        try {
+            await joi.object({
+                UserIdentityNo: joi.number().required(),
+                UserPassword: joi.string().max(99).required()
+            }).validateAsync(req.body);
             next();
-        else
+        } catch (error) {
             res.status(validateMessage.status).json({ message: validateMessage.message });
+        }
     }
 
-    static signUp(req, res, next) {
-        const body = req.body;
-        const state = !validator.isEmpty(body.UserFirstName)
-            && !validator.isEmpty(body.UserLastName)
-            && validator.isInt(body.UserIdentityNo)
-            && validator.isEmail(body.UserEmail)
-            && validator.isMobilePhone(body.UserPhone)
-            && !validator.isEmpty(body.UserPassword)
-            && validator.isInt(body.InstitutionID)
-            && validator.isInt(body.UserStatusID);
-        if (state)
+    static async signUp(req, res, next) {
+        try {
+            await joi.object({
+                UserFirstName: joi.string().min(3).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı]+$')).required(),
+                UserLastName: joi.string().min(3).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı]+$')).required(),
+                UserIdentityNo: joi.number().min(10000000000).max(99999999999).required(),
+                UserEmail: joi.string().email().required(),
+                UserPassword: joi.string().max(99).required(),
+                UserPhone: joi.string().min(11).max(11).pattern(new RegExp('^[0-9]+$')).required(),
+                UserStatusID: joi.number().required(),
+                InstitutionID: joi.number.required()
+            }).validateAsync(req.body);
             next();
-        else
+        } catch (error) {
             res.status(validateMessage.status).json({ message: validateMessage.message });
+        }
     }
 
     static accountDelete(req, res, next) {
-        const body = req.body;
-        if (validator.isInt(body.UserIdentityNo))
+        try {
+            joi.object({
+                UserIdentityNo: joi.number().min(10000000000).max(99999999999).required(),
+            }).validateAsync(req.body);
             next();
-        else
+        } catch (error) {
             res.status(validateMessage.status).json({ message: validateMessage.message });
+        }
     }
 
-    static userList(req, res, next) {
-        const body = req.body;
-        const state = (validator.isEmpty(body.limit) | validator.isInt(body.limit))
-            && (validator.isEmpty(body.offset) | validator.isInt(body.offset));
-        const offsetState = body.offset == null ? true : !validator.isEmpty(body.limit);
-        if (state & offsetState)
+    static async userList(req, res, next) {
+        try {
+
+            await joi.object({
+                limit: joi.number(),
+                offset: joi.number()
+            }).with('offset', 'limit').validateAsync(req.body);
+
             next();
-        else
+        } catch (error) {
             res.status(validateMessage.status).json({ message: validateMessage.message });
+        }
     }
 }
 
