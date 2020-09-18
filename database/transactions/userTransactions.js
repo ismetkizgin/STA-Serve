@@ -1,11 +1,9 @@
 const { mysqlDataContext } = require('../dataContexts');
 const { userMessages } = require('../../fixtures/messageStatus.json');
-const { helperTransactions } = require('../utils/');
 
 class UserTransactions {
     constructor() {
         this._datacontext = mysqlDataContext.connection();
-        this._helperTransactions = new helperTransactions(this._datacontext);
     }
 
     async loginAsync(values) {
