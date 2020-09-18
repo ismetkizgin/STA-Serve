@@ -1,10 +1,10 @@
 require('dotenv/config');
-const express = require('express');
+const express = require('express')
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const serve = require('./serve');
+const routers = require('./serve');
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 const app = express();
 
 app.use(cors());
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('api_key', process.env.API_KEY || 'secret');
 
-app.use(serve);
+app.use(routers);
 
 app.listen(PORT, () => {
     console.log("Ready on http://localhost:" + PORT)

@@ -1,36 +1,26 @@
 {
-  "name": "sta-serve",
+  "name": "api-document-template",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "start:dev": "nodemon app.js",
-    "release": "standard-version"
+    "start": "node app.js -p $PORT",
+    "start:dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ismetkizgin/STA-Serve.git"
+    "url": "git+https://github.com/ismetkizgin/api-document-template.git"
   },
-  "author": "İsmet Kizgin",
+  "author": "ismet kizgin",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ismetkizgin/STA-Serve/issues"
-  },
-  "homepage": "https://github.com/ismetkizgin/STA-Serve#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "joi": "^17.2.1",
-    "jsonwebtoken": "^8.5.1",
-    "mysql": "^2.18.1",
     "path": "^0.12.7",
-    "require-directory": "^2.1.1",
     "twig": "^1.15.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2",
-    "standard-version": "^9.0.0"
+    "nodemon": "^2.0.2"
   }
 }
