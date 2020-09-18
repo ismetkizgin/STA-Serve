@@ -22,3 +22,4 @@ INSERT INTO `tblUserStatusTransaction` (`UserStatusTransactionID`, `UserStatusTr
 (1, 'account-delete', 1),
 (2, 'sign-up', 1);
 (3, 'user', 1);
+(3, 'institution', 1);
