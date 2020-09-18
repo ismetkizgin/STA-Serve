@@ -6,7 +6,7 @@ const institutionValidator = validator.institutionValidator;
 const tokenControl = verifyToken.tokenControl;
 const authControl = authorization.authControl;
 
-router.post('/institution', institutionValidator.insert, async (req, res) => {
+router.post('/institution', tokenControl, authControl, institutionValidator.insert, async (req, res) => {
     try {
         const result = await institutionTransactions.insertAsync(req.body);
         res.json(result);
