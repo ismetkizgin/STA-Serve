@@ -26,8 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "path": "^0.12.7",
-    "require-directory": "^2.1.1",
-    "twig": "^1.15.1"
+    "require-directory": "^2.1.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.2",
