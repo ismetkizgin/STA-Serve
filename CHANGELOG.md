@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.1.0 (2020-09-18)
+
+
+### Features
+
+* added "Add Institution" router ([74f0dac](https://github.com/ismetkizgin/STA-Serve/commit/74f0dac05718444ab0a9c77fcc212e03a4f0481f))
+* added "Delete Institution" router ([b70e3f7](https://github.com/ismetkizgin/STA-Serve/commit/b70e3f767ac93edad38ae2492f2405ae416fc4ba))
+* added "List Institution Information" router. ([ea0c3df](https://github.com/ismetkizgin/STA-Serve/commit/ea0c3df70be117a37b84b4cd6b1307b18782003c))
+* added "Update institution information" router ([bd34759](https://github.com/ismetkizgin/STA-Serve/commit/bd34759b85037ccae22367565857879f07b0d936))
+* added account delete transaction ([8a98f10](https://github.com/ismetkizgin/STA-Serve/commit/8a98f1039040b4e5c7aefa546dcd6d1c6ebaff19))
+
+
+### Bug Fixes
+
+* fix for database script ([e688554](https://github.com/ismetkizgin/STA-Serve/commit/e6885548d4c180a3f972206d74c8ce4cdab2f985))
+
 ## 1.0.0 (2020-09-09)
 
 
