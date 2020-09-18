@@ -1,4 +1,4 @@
-# STA-Serve
+# STA RESTFUL API Project
 
 Deploy methods of STA-Serve REST API project are given below.
 
@@ -52,3 +52,6 @@ As a developer, to start the project and do the test operations, first go to the
   
 ```
 
+## Useful resources
+* [API Documentation](https://doc-sta-serve.herokuapp.com/)
+* [Changelog](https://github.com/ismetkizgin/STA-Serve/blob/master/CHANGELOG.md)
