@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost:3306
--- Üretim Zamanı: 09 Eyl 2020, 21:51:51
+-- Üretim Zamanı: 18 Eyl 2020, 16:32:40
 -- Sunucu sürümü: 8.0.21-0ubuntu0.20.04.4
--- PHP Sürümü: 7.4.7
+-- PHP Sürümü: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -88,7 +88,6 @@ CREATE TABLE `tblUser` (
   `UserStatusID` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
-
 -- --------------------------------------------------------
 
 --
@@ -145,7 +144,8 @@ CREATE VIEW `vwAuth`  AS  select `U`.`UserStatusID` AS `UserStatusID`,`U`.`UserS
 -- Tablo için indeksler `tblInstitution`
 --
 ALTER TABLE `tblInstitution`
-  ADD PRIMARY KEY (`InstitutionID`);
+  ADD PRIMARY KEY (`InstitutionID`),
+  ADD UNIQUE KEY `InstitutionName` (`InstitutionName`);
 
 --
 -- Tablo için indeksler `tblMartyr`
@@ -191,7 +191,7 @@ ALTER TABLE `tblUserStatusTransaction`
 -- Tablo için AUTO_INCREMENT değeri `tblInstitution`
 --
 ALTER TABLE `tblInstitution`
-  MODIFY `InstitutionID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `InstitutionID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblMartyr`
@@ -209,7 +209,7 @@ ALTER TABLE `tblMartyrImage`
 -- Tablo için AUTO_INCREMENT değeri `tblUser`
 --
 ALTER TABLE `tblUser`
-  MODIFY `UserID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `UserID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblUserStatus`
@@ -221,17 +221,11 @@ ALTER TABLE `tblUserStatus`
 -- Tablo için AUTO_INCREMENT değeri `tblUserStatusTransaction`
 --
 ALTER TABLE `tblUserStatusTransaction`
-  MODIFY `UserStatusTransactionID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `UserStatusTransactionID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Dökümü yapılmış tablolar için kısıtlamalar
 --
-
---
--- Tablo kısıtlamaları `tblInstitution`
---
-ALTER TABLE `tblInstitution`
-  ADD CONSTRAINT `tblInstitution_ibfk_1` FOREIGN KEY (`InstitutionID`) REFERENCES `tblUser` (`InstitutionID`);
 
 --
 -- Tablo kısıtlamaları `tblMartyr`
@@ -249,7 +243,8 @@ ALTER TABLE `tblMartyrImage`
 -- Tablo kısıtlamaları `tblUser`
 --
 ALTER TABLE `tblUser`
-  ADD CONSTRAINT `tblUser_ibfk_1` FOREIGN KEY (`UserStatusID`) REFERENCES `tblUserStatus` (`UserStatusID`);
+  ADD CONSTRAINT `tblUser_ibfk_1` FOREIGN KEY (`UserStatusID`) REFERENCES `tblUserStatus` (`UserStatusID`),
+  ADD CONSTRAINT `tblUser_ibfk_2` FOREIGN KEY (`InstitutionID`) REFERENCES `tblInstitution` (`InstitutionID`) ON DELETE CASCADE;
 
 --
 -- Tablo kısıtlamaları `tblUserStatusTransaction`
