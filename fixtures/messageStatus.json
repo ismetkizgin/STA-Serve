@@ -86,6 +86,12 @@
         "status": 410,
         "message": "There is no such institution."
       }
+    },
+    "list": {
+      "Not_Found": {
+        "status": 404,
+        "message": "No institution registered to the system was found."
+      }
     }
   }
 }
