@@ -56,7 +56,20 @@ class UserTransactions {
     }
 
     async userList(values) {
-        return this._helperTransactions.getDataList('tblUser', userMessages.userList.Not_Found, values);
+        const limitAndOffset = values.offset == null ? `${values.limit == null ? '' : `LIMIT ${values.limit}`}` : `LIMIT ${values.offset},${values.limit}`;
+        return new Promise((resolve, reject) => {
+            this._datacontext.query(`SELECT * FROM tblUser ORDER BY UserID DESC ${limitAndOffset}`, (error, result) => {
+                if (!error) {
+                    if (result.length > 0)
+                        resolve(result);
+                    else
+                        reject(errorMessage);
+                }
+                else {
+                    reject({ status: 500, message: error.message });
+                }
+            });
+        });
     }
 }
 
