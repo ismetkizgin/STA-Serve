@@ -42,10 +42,10 @@
         "message": "There is no such user."
       }
     },
-    "userList":{
-      "Not_Found":{
-        "status":404,
-        "message":"No user registered to the system was found."
+    "userList": {
+      "Not_Found": {
+        "status": 404,
+        "message": "No user registered to the system was found."
       }
     }
   },
@@ -53,6 +53,21 @@
     "Unauthorized": {
       "status": 401,
       "message": "Unauthorized transaction."
+    }
+  },
+  "institutionMessage": {
+    "insert": {
+      "Internal_Server_Error": {
+        "status": 500,
+        "message": "Error while registering institution !"
+      },
+      "Ok": {
+        "message": "Institutional registration was made."
+      },
+      "Conflict": {
+        "status": 409,
+        "message": "There is such institution."
+      }
     }
   }
 }
