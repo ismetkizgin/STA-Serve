@@ -68,6 +68,15 @@
         "status": 409,
         "message": "There is such institution."
       }
+    },
+    "update": {
+      "Ok": {
+        "message": "Institution information has been updated."
+      },
+      "Internal_Server_Error": {
+        "status": 500,
+        "message": "An error occurred while updating institution information."
+      }
     }
   }
 }
