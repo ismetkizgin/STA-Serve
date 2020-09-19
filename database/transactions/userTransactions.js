@@ -56,7 +56,7 @@ class UserTransactions {
     async list(values) {
         const limitAndOffset = values.offset == null ? `${values.limit == null ? '' : `LIMIT ${values.limit}`}` : `LIMIT ${values.offset},${values.limit}`;
         return new Promise((resolve, reject) => {
-            this._datacontext.query(`SELECT * FROM tblUser ORDER BY UserID DESC ${limitAndOffset}`, (error, result) => {
+            this._datacontext.query(`SELECT * FROM vwUserList ORDER BY UserFirstName, UserLastName DESC ${limitAndOffset}`, (error, result) => {
                 if (!error) {
                     if (result.length > 0)
                         resolve(result);
