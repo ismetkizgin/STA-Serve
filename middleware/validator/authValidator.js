@@ -34,9 +34,9 @@ class AuthValidator {
         }
     }
 
-    static accountDelete(req, res, next) {
+    static async accountDelete(req, res, next) {
         try {
-            joi.object({
+            await joi.object({
                 UserIdentityNo: joi.number().min(10000000000).max(99999999999).required(),
             }).validateAsync(req.body);
             next();
@@ -47,12 +47,10 @@ class AuthValidator {
 
     static async userList(req, res, next) {
         try {
-
             await joi.object({
                 limit: joi.number(),
                 offset: joi.number()
             }).with('offset', 'limit').validateAsync(req.body);
-
             next();
         } catch (error) {
             res.status(validateMessage.status).json({ message: validateMessage.message });
