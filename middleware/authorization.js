@@ -11,7 +11,7 @@ class Authorization {
                 next();
             }
             else {
-                const UserStatusTransactionName = req.originalUrl.replace('/', '');
+                const UserStatusTransactionName = req.originalUrl.replace(/[^a-zA-Z]/g, '');
                 const result = await authTransactions.authFindAsync({ UserStatusID: decode.UserStatusID, UserStatusTransactionName: UserStatusTransactionName });
                 if (result)
                     next();

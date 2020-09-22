@@ -57,6 +57,17 @@ class InstitutionValidator {
             res.status(validateMessage.status).json({ message: validateMessage.message });
         }
     }
+
+    static async find(req, res, next) {
+        try {
+            await joi.object({
+                InstitutionID: joi.number().min(1).required(),
+            }).validateAsync({ InstitutionID: parseInt(req.params.InstitutionID) });
+            next();
+        } catch (error) {
+            res.status(validateMessage.status).json({ message: validateMessage.message });
+        }
+    }
 }
 
 module.exports = InstitutionValidator;
