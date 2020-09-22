@@ -11,7 +11,7 @@ router.post('/login', authValidator.login, async (req, res) => {
     try {
         const result = await userTransactions.loginAsync(req.body);
         const payload = { UserID: result.UserID, UserIdentityNo: result.UserIdentityNo, UserStatusID: result.UserStatusID, InstitutionID: result.InstitutionID }
-        const token = jwt.sign(payload, req.app.get('api_key'), { expiresIn: 720 });
+        const token = jwt.sign(payload, req.app.get('api_key'), { expiresIn: '360d' });
         res.json({ result, token });
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
