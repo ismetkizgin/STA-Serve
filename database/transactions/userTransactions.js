@@ -37,9 +37,9 @@ class UserTransactions {
         });
     }
 
-    async accountDelete(UserIdentityNo) {
+    async delete(UserID) {
         return new Promise((resolve, reject) => {
-            this._datacontext.query(`DELETE FROM tblUser WHERE UserIdentityNo=?`, [UserIdentityNo], (error, result) => {
+            this._datacontext.query(`DELETE FROM tblUser WHERE UserID=?`, [UserID], (error, result) => {
                 if (!error) {
                     if (result.affectedRows)
                         resolve(userMessages.accountDelete.Ok);

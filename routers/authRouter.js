@@ -10,7 +10,7 @@ const authControl = authorization.authControl;
 router.post('/login', authValidator.login, async (req, res) => {
     try {
         const result = await userTransactions.loginAsync(req.body);
-        const payload = { UserID: result.UserID, UserIdentityNo: result.UserIdentityNo, UserStatusID: result.UserStatusID, InstitutionID: result.InstitutionID }
+        const payload = { UserID: result.UserID, UserStatusID: result.UserStatusID, InstitutionID: result.InstitutionID }
         const token = jwt.sign(payload, req.app.get('api_key'), { expiresIn: '360d' });
         res.json({ result, token });
     } catch (error) {
@@ -27,9 +27,9 @@ router.post('/sign-up', tokenControl, authValidator.signUp, authControl, async (
     }
 });
 
-router.delete('/account-delete', tokenControl, authValidator.accountDelete, authControl, async (req, res) => {
+router.delete('/my-account-delete', tokenControl, async (req, res) => {
     try {
-        const result = await userTransactions.accountDelete(req.body.UserIdentityNo);
+        const result = await userTransactions.delete(req.decode.UserID);
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
@@ -38,15 +38,6 @@ router.delete('/account-delete', tokenControl, authValidator.accountDelete, auth
 
 router.get('/token-decode', tokenControl, async (req, res) => {
     res.json(req.decode);
-});
-
-router.get('/user', tokenControl, authValidator.userList, authControl, async (req, res) => {
-    try {
-        const result = await userTransactions.list(req.body);
-        res.json(result);
-    } catch (error) {
-        res.status(error.status || 500).json({ message: error.message });
-    }
 });
 
 module.exports = router;
