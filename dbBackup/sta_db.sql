@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost:3306
--- Üretim Zamanı: 22 Eyl 2020, 22:06:44
+-- Üretim Zamanı: 22 Eyl 2020, 23:26:17
 -- Sunucu sürümü: 8.0.21-0ubuntu0.20.04.4
 -- PHP Sürümü: 7.4.10
 
@@ -143,6 +143,7 @@ CREATE TABLE `vwUserList` (
 ,`UserLastName` varchar(50)
 ,`UserPhone` varchar(25)
 ,`UserStatusID` int
+,`UserStatusName` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -161,7 +162,7 @@ CREATE VIEW `vwAuth`  AS  select `U`.`UserStatusID` AS `UserStatusID`,`U`.`UserS
 --
 DROP TABLE IF EXISTS `vwUserList`;
 
-CREATE VIEW `vwUserList`  AS  select `tblUser`.`UserID` AS `UserID`,`tblUser`.`UserFirstName` AS `UserFirstName`,`tblUser`.`UserLastName` AS `UserLastName`,`tblUser`.`UserIdentityNo` AS `UserIdentityNo`,`tblUser`.`UserEmail` AS `UserEmail`,`tblUser`.`UserPhone` AS `UserPhone`,`tblUser`.`InstitutionID` AS `InstitutionID`,`tblUser`.`UserStatusID` AS `UserStatusID`,`tblInstitution`.`InstitutionName` AS `InstitutionName` from ((`tblUser` join `tblInstitution` on((`tblUser`.`InstitutionID` = `tblInstitution`.`InstitutionID`))) join `tblUserStatus` on((`tblUser`.`UserStatusID` = `tblUserStatus`.`UserStatusID`))) ;
+CREATE VIEW `vwUserList`  AS  select `tblUser`.`UserID` AS `UserID`,`tblUser`.`UserFirstName` AS `UserFirstName`,`tblUser`.`UserLastName` AS `UserLastName`,`tblUser`.`UserIdentityNo` AS `UserIdentityNo`,`tblUser`.`UserEmail` AS `UserEmail`,`tblUser`.`UserPhone` AS `UserPhone`,`tblUser`.`InstitutionID` AS `InstitutionID`,`tblUser`.`UserStatusID` AS `UserStatusID`,`tblInstitution`.`InstitutionName` AS `InstitutionName`,`tblUserStatus`.`UserStatusName` AS `UserStatusName` from ((`tblUser` join `tblInstitution` on((`tblUser`.`InstitutionID` = `tblInstitution`.`InstitutionID`))) join `tblUserStatus` on((`tblUser`.`UserStatusID` = `tblUserStatus`.`UserStatusID`))) ;
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -213,6 +214,12 @@ ALTER TABLE `tblUserStatusTransaction`
 --
 -- Dökümü yapılmış tablolar için AUTO_INCREMENT değeri
 --
+
+--
+-- Tablo için AUTO_INCREMENT değeri `tblInstitution`
+--
+ALTER TABLE `tblInstitution`
+  MODIFY `InstitutionID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblMartyr`
