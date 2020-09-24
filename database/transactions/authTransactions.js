@@ -8,7 +8,7 @@ class AuthTransactions {
 
     async authFindAsync(values) {
         return new Promise((resolve, reject) => {
-            this.datacontext.query(`SELECT * FROM vwAuth WHERE UserStatusID=? AND UserStatusTransactionName=?`, [values.UserStatusID, values.UserStatusTransactionName], (error, result) => {
+            this.datacontext.query(`SELECT * FROM vwAuth WHERE UserStatusName=? AND UserStatusTransactionName=?`, [values.UserStatusName, values.UserStatusTransactionName], (error, result) => {
                 if (!error) {
                     if (result.length)
                         resolve(true);

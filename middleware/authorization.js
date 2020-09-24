@@ -8,7 +8,7 @@ class Authorization {
         try {
             const decode = req.decode;
             const UserStatusTransactionName = req.originalUrl.replace(/[^a-zA-Z]/g, '');
-            const result = await authTransactions.authFindAsync({ UserStatusID: decode.UserStatusID, UserStatusTransactionName: UserStatusTransactionName });
+            const result = await authTransactions.authFindAsync({ UserStatusName: decode.UserStatusName, UserStatusTransactionName: UserStatusTransactionName });
             if (result)
                 next();
         } catch (error) {
