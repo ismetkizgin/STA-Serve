@@ -35,32 +35,6 @@ Result Example:
                     </p>
                 </div>
                 <div class="overflow-hidden content-section">
-                    <h2>Sign Up</h2>
-                    <pre><code>
-#Request Example
-POST <url id="path">sign-up</url>
-{
-    "UserID": 15,
-    "UserFirstName": "STA",
-    "UserLastName": "PROJECT",
-    "UserPassword": "password",
-    "UserIdentityNo": 1,
-    "UserEmail": "info@sta.com",
-    "UserPhone": "05555555555",
-    "InstitutionID": 1,
-    "UserStatusID": 1
-}
-        
-Reusult Example:
-{
-    message: "User registration has taken place."
-}</code></pre>
-                    <p>For the sign up transaction, you need to make a POST call to the URL below. User must login for this operation.: 
-                        <br>
-                        <code class="higlighted" id="path">sign-up</code>
-                    </p>
-                </div>
-                <div class="overflow-hidden content-section">
                     <h2>My Account Delete</h2>
                     <pre><code>
 #Request Example
@@ -73,6 +47,26 @@ Reusult Example:
                     <p>For the delete my account transaction, you need to make a DELETE call to the URL below. User must login for this operation.: 
                         <br>
                         <code class="higlighted" id="path">my-account-delete</code>
+                    </p>
+                </div>
+                 <div class="overflow-hidden content-section">
+                    <h2>Role List</h2>
+                    <pre><code>
+#Request Example
+GET <url id="path">role</url>
+        
+Reusult Example:
+[
+    {
+        "UserStatusName": "Admin"
+    },
+    {
+        "UserStatusName": "Editor"
+    }
+]</code></pre>
+                    <p>For the role list you need to make a GET call to the URL below. User must login for this operation.: 
+                        <br>
+                        <code class="higlighted" id="path">role</code>
                     </p>
                 </div>
                 <div class="overflow-hidden content-section">
