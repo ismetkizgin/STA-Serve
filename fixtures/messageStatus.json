@@ -53,6 +53,10 @@
     "Unauthorized": {
       "status": 401,
       "message": "Unauthorized transaction."
+    },
+    "Not_found": {
+      "status": 404,
+      "message": "User role was not found."
     }
   },
   "institutionMessage": {

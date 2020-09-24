@@ -3,14 +3,14 @@ const jwt = require('jsonwebtoken');
 const TransactionsFactory = require('../database/transactionFactory');
 const { validator, verifyToken, authorization } = require('../middleware');
 const userTransactions = TransactionsFactory.creating('userTransactions');
+const authTransactions = TransactionsFactory.creating('authTransactions');
 const authValidator = validator.authValidator;
 const tokenControl = verifyToken.tokenControl;
-const authControl = authorization.authControl;
 
 router.post('/login', authValidator.login, async (req, res) => {
     try {
         const result = await userTransactions.loginAsync(req.body);
-        const payload = { UserID: result.UserID, UserStatusID: result.UserStatusID, InstitutionID: result.InstitutionID }
+        const payload = { UserID: result.UserID, UserStatusName: result.UserStatusName, InstitutionID: result.InstitutionID }
         const token = jwt.sign(payload, req.app.get('api_key'), { expiresIn: '360d' });
         res.json({ result, token });
     } catch (error) {
@@ -18,18 +18,18 @@ router.post('/login', authValidator.login, async (req, res) => {
     }
 });
 
-router.post('/sign-up', tokenControl, authValidator.signUp, authControl, async (req, res) => {
+router.delete('/my-account-delete', tokenControl, async (req, res) => {
     try {
-        const result = await userTransactions.signUpAsync(req.body);
+        const result = await userTransactions.deleteAsync(req.decode.UserID);
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
     }
 });
 
-router.delete('/my-account-delete', tokenControl, async (req, res) => {
+router.get('/role', tokenControl, async (req, res) => {
     try {
-        const result = await userTransactions.delete(req.decode.UserID);
+        const result = await authTransactions.additiveUserTypesAsync(req.decode.UserStatusName);
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
