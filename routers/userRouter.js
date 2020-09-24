@@ -25,9 +25,18 @@ router.delete('/user', tokenControl, userValidator.delete, authControl, async (r
     }
 });
 
-router.post('/user', tokenControl, userValidator.insert, userInsertAuthControl, async (req, res) => {
+router.post('/user', tokenControl, userValidator.insert, authControl, userInsertAuthControl, async (req, res) => {
     try {
         const result = await userTransactions.insertAsync(Object.assign(req.body, { InstitutionID: req.decode.InstitutionID }));
+        res.json(result);
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message });
+    }
+});
+
+router.put('/user', tokenControl, userValidator.update, authControl, userInsertAuthControl, async (req, res) => {
+    try {
+        const result = await userTransactions.updateAsync(req.body);
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });

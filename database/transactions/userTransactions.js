@@ -26,12 +26,12 @@ class UserTransactions {
             this._datacontext.query(`INSERT INTO tblUser SET ?`, values, (error, result) => {
                 if (!error) {
                     if (result.affectedRows)
-                        resolve(userMessages.signup.Ok);
+                        resolve(userMessages.insert.Ok);
                     else
-                        reject(userMessages.signup.Internal_Server_Error)
+                        reject(userMessages.insert.Internal_Server_Error)
                 }
                 else {
-                    reject(error.errno == 1062 ? userMessages.signup.Conflict : { status: 500, message: error.message });
+                    reject(error.errno == 1062 ? userMessages.insert.Conflict : { status: 500, message: error.message });
                 }
             });
         });
@@ -48,6 +48,22 @@ class UserTransactions {
                 }
                 else {
                     reject({ status: 500, message: error.message });
+                }
+            });
+        });
+    }
+
+    async updateAsync(values) {
+        return new Promise((resolve, reject) => {
+            this._datacontext.query(`UPDATE tblUser SET ? WHERE UserID=?`, [values, values.UserID], (error, result) => {
+                if (!error) {
+                    if (result.affectedRows)
+                        resolve(userMessages.update.Ok);
+                    else
+                        reject(userMessages.update.Internal_Server_Error)
+                }
+                else {
+                    reject(error.errno == 1062 ? userMessages.insert.Conflict : { status: 500, message: error.message });
                 }
             });
         });
