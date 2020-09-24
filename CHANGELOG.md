@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.2.0 (2020-09-24)
+
+
+### Features
+
+* added user delete router ([0785dde](https://github.com/ismetkizgin/STA-Serve/commit/0785dde05231c6c1d2b14be19ad75c3b6913235e))
+
+
+### Bug Fixes
+
+* fix for account delete transaction ([2ef1e74](https://github.com/ismetkizgin/STA-Serve/commit/2ef1e7453cf20f8e88f4dea17c30b5339b242173))
+
 ## 1.1.0 (2020-09-18)
 
 
