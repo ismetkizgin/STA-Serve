@@ -30,8 +30,8 @@ class UserValidator {
     static async insert(req, res, next) {
         try {
             await joi.object({
-                UserFirstName: joi.string().min(3).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı]+$')).required(),
-                UserLastName: joi.string().min(3).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı]+$')).required(),
+                UserFirstName: joi.string().min(3).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı ]+$')).required(),
+                UserLastName: joi.string().min(3).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı ]+$')).required(),
                 UserIdentityNo: joi.number().min(10000000000).max(99999999999).required(),
                 UserEmail: joi.string().email().required(),
                 UserPassword: joi.string().max(99).required(),
