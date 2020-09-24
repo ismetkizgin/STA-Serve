@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost:3306
--- Üretim Zamanı: 22 Eyl 2020, 23:26:17
+-- Üretim Zamanı: 24 Eyl 2020, 10:59:40
 -- Sunucu sürümü: 8.0.21-0ubuntu0.20.04.4
 -- PHP Sürümü: 7.4.10
 
@@ -85,7 +85,7 @@ CREATE TABLE `tblUser` (
   `UserEmail` varchar(100) COLLATE utf8_turkish_ci NOT NULL,
   `UserPhone` varchar(25) COLLATE utf8_turkish_ci NOT NULL,
   `InstitutionID` int NOT NULL,
-  `UserStatusID` int NOT NULL
+  `UserStatusName` varchar(50) COLLATE utf8_turkish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
 -- --------------------------------------------------------
@@ -95,7 +95,6 @@ CREATE TABLE `tblUser` (
 --
 
 CREATE TABLE `tblUserStatus` (
-  `UserStatusID` int NOT NULL,
   `UserStatusName` varchar(100) COLLATE utf8_turkish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
@@ -108,9 +107,8 @@ CREATE TABLE `tblUserStatus` (
 --
 
 CREATE TABLE `tblUserStatusTransaction` (
-  `UserStatusTransactionID` int NOT NULL,
   `UserStatusTransactionName` varchar(100) COLLATE utf8_turkish_ci NOT NULL,
-  `UserStatusID` int NOT NULL
+  `UserStatusName` varchar(50) COLLATE utf8_turkish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
 
@@ -121,9 +119,7 @@ CREATE TABLE `tblUserStatusTransaction` (
 -- (Asıl görünüm için aşağıya bakın)
 --
 CREATE TABLE `vwAuth` (
-`UserStatusID` int
-,`UserStatusName` varchar(100)
-,`UserStatusTransactionID` int
+`UserStatusName` varchar(100)
 ,`UserStatusTransactionName` varchar(100)
 );
 
@@ -142,8 +138,7 @@ CREATE TABLE `vwUserList` (
 ,`UserIdentityNo` bigint
 ,`UserLastName` varchar(50)
 ,`UserPhone` varchar(25)
-,`UserStatusID` int
-,`UserStatusName` varchar(100)
+,`UserStatusName` varchar(50)
 );
 
 -- --------------------------------------------------------
@@ -153,7 +148,7 @@ CREATE TABLE `vwUserList` (
 --
 DROP TABLE IF EXISTS `vwAuth`;
 
-CREATE VIEW `vwAuth`  AS  select `U`.`UserStatusID` AS `UserStatusID`,`U`.`UserStatusName` AS `UserStatusName`,`T`.`UserStatusTransactionID` AS `UserStatusTransactionID`,`T`.`UserStatusTransactionName` AS `UserStatusTransactionName` from (`tblUserStatus` `U` join `tblUserStatusTransaction` `T` on((`U`.`UserStatusID` = `T`.`UserStatusID`))) ;
+CREATE VIEW `vwAuth`  AS  select `U`.`UserStatusName` AS `UserStatusName`,`T`.`UserStatusTransactionName` AS `UserStatusTransactionName` from (`tblUserStatus` `U` join `tblUserStatusTransaction` `T` on((`U`.`UserStatusName` = `T`.`UserStatusName`))) ;
 
 -- --------------------------------------------------------
 
@@ -162,7 +157,7 @@ CREATE VIEW `vwAuth`  AS  select `U`.`UserStatusID` AS `UserStatusID`,`U`.`UserS
 --
 DROP TABLE IF EXISTS `vwUserList`;
 
-CREATE VIEW `vwUserList`  AS  select `tblUser`.`UserID` AS `UserID`,`tblUser`.`UserFirstName` AS `UserFirstName`,`tblUser`.`UserLastName` AS `UserLastName`,`tblUser`.`UserIdentityNo` AS `UserIdentityNo`,`tblUser`.`UserEmail` AS `UserEmail`,`tblUser`.`UserPhone` AS `UserPhone`,`tblUser`.`InstitutionID` AS `InstitutionID`,`tblUser`.`UserStatusID` AS `UserStatusID`,`tblInstitution`.`InstitutionName` AS `InstitutionName`,`tblUserStatus`.`UserStatusName` AS `UserStatusName` from ((`tblUser` join `tblInstitution` on((`tblUser`.`InstitutionID` = `tblInstitution`.`InstitutionID`))) join `tblUserStatus` on((`tblUser`.`UserStatusID` = `tblUserStatus`.`UserStatusID`))) ;
+CREATE VIEW `vwUserList`  AS  select `tblUser`.`UserID` AS `UserID`,`tblUser`.`UserFirstName` AS `UserFirstName`,`tblUser`.`UserLastName` AS `UserLastName`,`tblUser`.`UserIdentityNo` AS `UserIdentityNo`,`tblUser`.`UserEmail` AS `UserEmail`,`tblUser`.`UserPhone` AS `UserPhone`,`tblUser`.`UserStatusName` AS `UserStatusName`,`tblUser`.`InstitutionID` AS `InstitutionID`,`tblInstitution`.`InstitutionName` AS `InstitutionName` from (`tblUser` join `tblInstitution` on((`tblUser`.`InstitutionID` = `tblInstitution`.`InstitutionID`))) ;
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -195,21 +190,21 @@ ALTER TABLE `tblMartyrImage`
 ALTER TABLE `tblUser`
   ADD PRIMARY KEY (`UserID`),
   ADD UNIQUE KEY `UserIdentityNo` (`UserIdentityNo`),
-  ADD KEY `UserStatusID` (`UserStatusID`),
-  ADD KEY `InstitutionID` (`InstitutionID`);
+  ADD KEY `InstitutionID` (`InstitutionID`),
+  ADD KEY `UserStatusName` (`UserStatusName`);
 
 --
 -- Tablo için indeksler `tblUserStatus`
 --
 ALTER TABLE `tblUserStatus`
-  ADD PRIMARY KEY (`UserStatusID`);
+  ADD PRIMARY KEY (`UserStatusName`);
 
 --
 -- Tablo için indeksler `tblUserStatusTransaction`
 --
 ALTER TABLE `tblUserStatusTransaction`
-  ADD PRIMARY KEY (`UserStatusTransactionID`),
-  ADD KEY `UserStatusID` (`UserStatusID`);
+  ADD PRIMARY KEY (`UserStatusTransactionName`),
+  ADD KEY `UserStatusName` (`UserStatusName`);
 
 --
 -- Dökümü yapılmış tablolar için AUTO_INCREMENT değeri
@@ -237,19 +232,7 @@ ALTER TABLE `tblMartyrImage`
 -- Tablo için AUTO_INCREMENT değeri `tblUser`
 --
 ALTER TABLE `tblUser`
-  MODIFY `UserID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
--- Tablo için AUTO_INCREMENT değeri `tblUserStatus`
---
-ALTER TABLE `tblUserStatus`
-  MODIFY `UserStatusID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Tablo için AUTO_INCREMENT değeri `tblUserStatusTransaction`
---
-ALTER TABLE `tblUserStatusTransaction`
-  MODIFY `UserStatusTransactionID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `UserID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Dökümü yapılmış tablolar için kısıtlamalar
@@ -271,14 +254,14 @@ ALTER TABLE `tblMartyrImage`
 -- Tablo kısıtlamaları `tblUser`
 --
 ALTER TABLE `tblUser`
-  ADD CONSTRAINT `tblUser_ibfk_1` FOREIGN KEY (`UserStatusID`) REFERENCES `tblUserStatus` (`UserStatusID`),
-  ADD CONSTRAINT `tblUser_ibfk_2` FOREIGN KEY (`InstitutionID`) REFERENCES `tblInstitution` (`InstitutionID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `tblUser_ibfk_2` FOREIGN KEY (`InstitutionID`) REFERENCES `tblInstitution` (`InstitutionID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tblUser_ibfk_3` FOREIGN KEY (`UserStatusName`) REFERENCES `tblUserStatus` (`UserStatusName`);
 
 --
 -- Tablo kısıtlamaları `tblUserStatusTransaction`
 --
 ALTER TABLE `tblUserStatusTransaction`
-  ADD CONSTRAINT `tblUserStatusTransaction_ibfk_1` FOREIGN KEY (`UserStatusID`) REFERENCES `tblUserStatus` (`UserStatusID`);
+  ADD CONSTRAINT `tblUserStatusTransaction_ibfk_1` FOREIGN KEY (`UserStatusName`) REFERENCES `tblUserStatus` (`UserStatusName`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
