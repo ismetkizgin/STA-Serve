@@ -2,10 +2,10 @@
 -- Tablo döküm verisi `tblUserStatus`
 --
 
-INSERT INTO `tblUserStatus` (`UserStatusName`) VALUES
-('Root'),
-('Admin'),
-('User');
+INSERT INTO `tblUserStatus` (`UserStatusName`, `UserStatusNumber`) VALUES
+('Root', 777),
+('Admin', 666),
+('User', 555);
 
 --
 -- Tablo döküm verisi `tblInstitution`

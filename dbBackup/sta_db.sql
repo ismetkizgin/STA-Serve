@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost:3306
--- Üretim Zamanı: 24 Eyl 2020, 10:59:40
+-- Üretim Zamanı: 24 Eyl 2020, 22:36:37
 -- Sunucu sürümü: 8.0.21-0ubuntu0.20.04.4
 -- PHP Sürümü: 7.4.10
 
@@ -21,6 +21,15 @@ SET time_zone = "+00:00";
 --
 -- Veritabanı: `sta_db`
 --
+
+DELIMITER $$
+--
+-- Yordamlar
+--
+CREATE PROCEDURE `prAdditiveUserTypes` (IN `StatusName` VARCHAR(50))  NO SQL
+SELECT UserStatusName FROM tblUserStatus WHERE UserStatusNumber<(SELECT UserStatusNumber FROM tblUserStatus WHERE UserStatusName=StatusName)$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -95,7 +104,8 @@ CREATE TABLE `tblUser` (
 --
 
 CREATE TABLE `tblUserStatus` (
-  `UserStatusName` varchar(100) COLLATE utf8_turkish_ci NOT NULL
+  `UserStatusName` varchar(100) COLLATE utf8_turkish_ci NOT NULL,
+  `UserStatusNumber` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
 
@@ -232,7 +242,7 @@ ALTER TABLE `tblMartyrImage`
 -- Tablo için AUTO_INCREMENT değeri `tblUser`
 --
 ALTER TABLE `tblUser`
-  MODIFY `UserID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `UserID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Dökümü yapılmış tablolar için kısıtlamalar
