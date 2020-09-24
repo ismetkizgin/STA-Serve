@@ -5,19 +5,29 @@ const userTransactions = TransactionsFactory.creating('userTransactions');
 const userValidator = validator.userValidator;
 const tokenControl = verifyToken.tokenControl;
 const authControl = authorization.authControl;
+const userInsertAuthControl = authorization.userInsertAuthControl;
 
-router.get('/user', tokenControl, authControl, userValidator.list, async (req, res) => {
+router.get('/user', tokenControl, userValidator.list, authControl, async (req, res) => {
     try {
-        const result = await userTransactions.list(req.body);
+        const result = await userTransactions.listAsync(req.body);
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
     }
 });
 
-router.delete('/user', tokenControl, authControl, userValidator.delete, async (req, res) => {
+router.delete('/user', tokenControl, userValidator.delete, authControl, async (req, res) => {
     try {
-        const result = await userTransactions.delete(req.body.UserID);
+        const result = await userTransactions.deleteAsync(req.body.UserID);
+        res.json(result);
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message });
+    }
+});
+
+router.post('/user', tokenControl, userValidator.insert, userInsertAuthControl, async (req, res) => {
+    try {
+        const result = await userTransactions.insertAsync(Object.assign(req.body, { InstitutionID: req.decode.InstitutionID }));
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });

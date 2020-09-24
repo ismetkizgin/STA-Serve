@@ -21,7 +21,7 @@ class UserTransactions {
         });
     }
 
-    async signUpAsync(values) {
+    async insertAsync(values) {
         return new Promise((resolve, reject) => {
             this._datacontext.query(`INSERT INTO tblUser SET ?`, values, (error, result) => {
                 if (!error) {
@@ -37,7 +37,7 @@ class UserTransactions {
         });
     }
 
-    async delete(UserID) {
+    async deleteAsync(UserID) {
         return new Promise((resolve, reject) => {
             this._datacontext.query(`DELETE FROM tblUser WHERE UserID=?`, [UserID], (error, result) => {
                 if (!error) {
@@ -53,7 +53,7 @@ class UserTransactions {
         });
     }
 
-    async list(values) {
+    async listAsync(values) {
         const limitAndOffset = values.offset == null ? `${values.limit == null ? '' : `LIMIT ${values.limit}`}` : `LIMIT ${values.offset},${values.limit}`;
         return new Promise((resolve, reject) => {
             this._datacontext.query(`SELECT * FROM vwUserList ORDER BY UserFirstName, UserLastName DESC ${limitAndOffset}`, (error, result) => {
