@@ -1,0 +1,144 @@
+<div class="content-page tabcontent" id="tabInstitution">
+            <div class="content-code"></div>
+            <div class="content">
+                <div class="overflow-hidden content-section">
+                    <h1>Auth Transacsions</h1>
+                    <p>The user performs the login, sign up and account delete operations with the following examples.</p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Institution Add</h2>
+                    <pre><code>
+#Request Example
+POST <url id="path">institution</url>
+{
+    "InstitutionName": STA Kurumu,
+    "InstitutionCity": Manisa,
+    "InstitutionDistrict": Turgutlu,
+    "InstitutionEmail": "info@staproject.com",
+    "InstitutionPhone": "05555555555"
+}       
+
+Result Example:
+{
+    "message": "There is such institution."
+}</code></pre>
+                    <p>For the add institution, you need to make a POST call to the URL below. User must login for this operation.: 
+                        <br>
+                        <code class="higlighted" id="path">institution</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Institution Update</h2>
+                    <pre><code>
+#Request Example
+PUT <url id="path">institution</url>
+{
+    "InstitutionID": 1,
+    "InstitutionName": STA Kurumu,
+    "InstitutionCity": Manisa,
+    "InstitutionDistrict": Turgutlu,
+    "InstitutionEmail": "info@staproject.com",
+    "InstitutionPhone": "05555555555"
+}        
+
+Result Example:   
+{
+    "message": "Institution information has been updated."
+}</code></pre>
+                    <p>For the institution update, you need to make a PUT call to the URL below. User must login for this operation.: 
+                        <br>
+                        <code class="higlighted" id="path">institution</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Institution Delete</h2>
+                    <pre><code>
+#Request Example
+DELETE <url id="path">institution</url>      
+{
+    "InstitutionID": 9
+}
+
+Reusult Example:
+{
+    "message": "Institution information has been deleted."
+}</code></pre>
+                    <p>For the delete institution, you need to make a DELETE call to the URL below. User must login for this operation.: 
+                        <br>
+                        <code class="higlighted" id="path">institution</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Institution List</h2>
+                    <pre><code>
+#Request Example
+GET <url id="path">institution</url>
+
+Reusult Example:
+[
+    {
+        "InstitutionID": 1,
+        "InstitutionName": "STA Kurumu",
+        "InstitutionCity": "Manisa",
+        "InstitutionDistrict": "Turgutlu",
+        "InstitutionEmail": "info@staproject.com",
+        "InstitutionPhone": "05555555555"
+    },
+    {
+        "InstitutionID": 1,
+        "InstitutionName": "STA Kurumu 1",
+        "InstitutionCity": "Manisa",
+        "InstitutionDistrict": "Turgutlu",
+        "InstitutionEmail": "info@staproject.com",
+        "InstitutionPhone": "05555555555"
+    },
+    ...
+]
+
+GET <url id="path">institution</url>
+{
+    "limit": 1,
+    "offset": 0
+}
+
+Reusult Example:
+[
+    {
+        "InstitutionID": 1,
+        "InstitutionName": "STA Kurumu",
+        "InstitutionCity": "Manisa",
+        "InstitutionDistrict": "Turgutlu",
+        "InstitutionEmail": "info@staproject.com",
+        "InstitutionPhone": "05555555555"
+    }
+]</code></pre>
+                    <p>For the institution list, you need to make a GET call to the URL below. User must login for this operation.:
+                        <br>
+                        <code class="higlighted" id="path">institution</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Institution Information</h2>
+                    <pre><code>
+#Request Example
+GET <url id="path">institution/1</url>
+
+Reusult Example:
+[
+    {
+        "InstitutionID": 1,
+        "InstitutionName": "STA Kurumu",
+        "InstitutionCity": "Manisa",
+        "InstitutionDistrict": "Turgutlu",
+        "InstitutionEmail": "info@staproject.com",
+        "InstitutionPhone": "05555555555"
+    }
+]</code></pre>
+                    <p>For the Institution Information, you need to make a GET call to the URL below. User must login for this operation.:
+                        <br>
+                        <code class="higlighted" id="path">institution/:InstitutionID</code>
+                    </p>
+                </div>
+            </div>
+            <div class="content-code"></div>
+        </div>
