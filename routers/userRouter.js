@@ -16,6 +16,15 @@ router.get('/user', tokenControl, userValidator.list, authControl, async (req, r
     }
 });
 
+router.get('/user/:UserID', tokenControl, userValidator.find, authControl, async (req, res) => {
+    try {
+        const result = await userTransactions.findAsync(req.params.UserID);
+        res.json(result);
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message });
+    }
+});
+
 router.delete('/user', tokenControl, userValidator.delete, authControl, async (req, res) => {
     try {
         const result = await userTransactions.deleteAsync(req.body.UserID);

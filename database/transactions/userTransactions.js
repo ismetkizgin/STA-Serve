@@ -85,6 +85,22 @@ class UserTransactions {
             });
         });
     }
+
+    async findAsync(UserID) {
+        return new Promise((resolve, reject) => {
+            this._datacontext.query(`SELECT * FROM vwUserList WHERE UserID=?`, [UserID], (error, result) => {
+                if (!error) {
+                    if (result.length > 0)
+                        resolve(result);
+                    else
+                        reject(userMessages.list.Not_Found);
+                }
+                else {
+                    reject({ status: 500, message: error.message });
+                }
+            });
+        });
+    }
 }
 
 module.exports = UserTransactions;

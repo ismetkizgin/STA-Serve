@@ -63,6 +63,17 @@ class UserValidator {
             res.status(validateMessage.status).json({ message: validateMessage.message });
         }
     }
+
+    static async find(req, res, next) {
+        try {
+            await joi.object({
+                UserID: joi.number().min(1).required(),
+            }).validateAsync({ UserID: parseInt(req.params.UserID) });
+            next();
+        } catch (error) {
+            res.status(validateMessage.status).json({ message: validateMessage.message });
+        }
+    }
 }
 
 module.exports = UserValidator;
