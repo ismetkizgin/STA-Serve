@@ -1,0 +1,131 @@
+ <div class="content-page tabcontent" id="tabTest">
+            <div class="content-code"></div>
+            <div class="content">
+                <div class="overflow-hidden content-section">
+                    <h1>User Transacsions</h1>
+                    <p>The user performs the login, sign up and account delete operations with the following examples.</p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>User</h2>
+                    <pre><code>
+#Request Example
+POST <url id="path">user</url>
+{
+    "UserFirstName": STA,
+    "UserLastName": Serve,
+    "UserIdentityNo": "11111111111"
+    "UserEmail": "info@staproject.com",
+    "UserPhone": "05555555555"
+    "UserPassword": "password"
+    "UserStatusName": "admin"
+}       
+
+Result Example:
+{
+        "message": "User registration has taken place."
+}</code></pre>
+                    <p>For the add user, you need to make a POST call to the URL below. User must login for this operation.: 
+                        <br>
+                        <code class="higlighted" id="path">user</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>User Update</h2>
+                    <pre><code>
+#Request Example
+PUT <url id="path">user</url>
+{
+    "UserID": 1,
+    "UserFirstName": STA,
+    "UserLastName": Serve,
+    "UserIdentityNo": 12345699000,
+    "UserEmail": "info@staproject.com",
+    "UserPhone": "05555555555"
+    "UserPassword": "password"
+    "UserStatusName": "Admin"
+}        
+
+Result Example:   
+{
+    "message": "User information has been updated."
+}</code></pre>
+                    <p>For the user update, you need to make a PUT call to the URL below. User must login for this operation.: 
+                        <br>
+                        <code class="higlighted" id="path">user</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>User Delete</h2>
+                    <pre><code>
+#Request Example
+DELETE <url id="path">user</url>      
+{
+    "UserID": 1
+}
+
+Reusult Example:
+{
+    "message": "User information has been deleted."
+}</code></pre>
+                    <p>For the delete user, you need to make a DELETE call to the URL below. User must login for this operation.: 
+                        <br>
+                        <code class="higlighted" id="path">user</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>User List</h2>
+                    <pre><code>
+#Request Example
+GET <url id="path">user</url>
+{
+    "limit": 1,
+    "offset": 0
+}
+
+Reusult Example:
+[
+    {
+        "UserID": 15,
+        "UserFirstName": "STA",
+        "UserLastName": "Serve",
+        "UserIdentityNo": 1,
+        "UserEmail": "info@staproject.com",
+        "UserPhone": "05555555555",
+        "UserStatusName": "Admin",
+        "InstitutionID": 1,
+        "InstitutionName": "STA Kurumu"
+    }
+]</code></pre>
+                    <p>For the user list, you need to make a GET call to the URL below. User must login for this operation.:
+                        <br>
+                        <code class="higlighted" id="path">institution</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>User Information</h2>
+                    <pre><code>
+#Request Example
+GET <url id="path">User/:UserID</url>
+
+Reusult Example:
+[
+    {
+        "UserID": 15,
+        "UserFirstName": "STA",
+        "UserLastName": "Serve",
+        "UserIdentityNo": 1,
+        "UserEmail": "info@staproject.com",
+        "UserPhone": "05555555555",
+        "UserStatusName": "Admin",
+        "InstitutionID": 1,
+        "InstitutionName": "STA Kurumu"
+    }
+]</code></pre>
+                    <p>For the User Information, you need to make a GET call to the URL below. User must login for this operation.:
+                        <br>
+                        <code class="higlighted" id="path">user/1</code>
+                    </p>
+                </div>
+            </div>
+            <div class="content-code"></div>
+        </div>
