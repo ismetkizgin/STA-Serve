@@ -6,21 +6,6 @@ class AuthTransactions {
         this.datacontext = mysqlDataContext.connection();
     }
 
-    async authFindAsync(values) {
-        return new Promise((resolve, reject) => {
-            this.datacontext.query(`SELECT * FROM vwAuth WHERE UserStatusName=? AND UserStatusTransactionName=?`, [values.UserStatusName, values.UserStatusTransactionName], (error, result) => {
-                if (!error) {
-                    if (result.length)
-                        resolve(true);
-                    else
-                        reject(authMessages.Unauthorized);
-                }
-                else
-                    reject({ status: 500, message: error.message });
-            });
-        });
-    }
-
     async additiveUserTypesAsync(UserStatusName) {
         return new Promise((resolve, reject) => {
             this.datacontext.query(`CALL prAdditiveUserTypes(?)`, [UserStatusName], (error, result) => {
