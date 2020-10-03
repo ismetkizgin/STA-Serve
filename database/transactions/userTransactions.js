@@ -91,7 +91,7 @@ class UserTransactions {
             this._datacontext.query(`SELECT * FROM vwUserList WHERE UserID=?`, [UserID], (error, result) => {
                 if (!error) {
                     if (result.length > 0)
-                        resolve(result);
+                        resolve(result[0]);
                     else
                         reject(userMessages.list.Not_Found);
                 }

@@ -8,8 +8,7 @@ class Authorization {
 
     static async authControl(req, res, next) {
         try {
-            const auth = routerAuthorization[req.originalUrl.replace(/[^a-zA-Z -]/g, '')][req.method];
-            console.log(req.decode.UserStatusName);
+            const auth = routerAuthorization[req.originalUrl.replace(/[^a-zA-Z -]/g, '')][req.method].Authorize;
             if (!auth || auth.indexOf(req.decode.UserStatusName) != -1)
                 next()
             else
@@ -26,7 +25,8 @@ class Authorization {
                 (statusName) => statusName.UserStatusName == req.body.UserStatusName
             ) == -1)
                 res.status(authMessages.Unauthorized.status).json({ message: authMessages.Unauthorized.message });
-            next();
+            else
+                next();
         } catch (error) {
             res.status(error.status || 500).json({ message: error.message });
         }

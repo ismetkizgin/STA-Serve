@@ -37,7 +37,7 @@ class UserValidator {
                 UserPassword: joi.string().max(99).required(),
                 UserPhone: joi.string().min(11).max(11).pattern(new RegExp('^[0-9]+$')).required(),
                 UserStatusName: joi.string().required(),
-                InstitotionID: joi.number().required()
+                InstitutionID: joi.number().required()
             }).validateAsync(req.body);
             next();
         } catch (error) {

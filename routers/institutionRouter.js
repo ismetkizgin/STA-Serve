@@ -1,5 +1,4 @@
 const router = require('express')();
-const Roles = require('../models/roles');
 const TransactionsFactory = require('../database/transactionFactory');
 const { validator, verifyToken, authorization } = require('../middleware');
 const { authMessages } = require('../fixtures/messageStatus.json');
@@ -7,6 +6,8 @@ const institutionTransactions = TransactionsFactory.creating('institutionTransac
 const institutionValidator = validator.institutionValidator;
 const tokenControl = verifyToken.tokenControl;
 const authControl = authorization.authControl;
+let { routerAuthorization } = require('../utils');
+routerAuthorization = routerAuthorization['institution'];
 
 router.post('/institution', tokenControl, authControl, institutionValidator.insert, async (req, res) => {
     try {
@@ -38,7 +39,7 @@ router.delete('/institution', tokenControl, authControl, institutionValidator.de
 router.get('/institution', tokenControl, institutionValidator.list, async (req, res) => {
     try {
         let result;
-        if ([Roles.Root, Roles.Administrator].indexOf(req.decode.UserStatusName) != -1)
+        if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) === -1)
             result = await institutionTransactions.listAsync(req.body);
         else
             result = await institutionTransactions.findAsync(req.decode.InstitutionID);
@@ -50,8 +51,7 @@ router.get('/institution', tokenControl, institutionValidator.list, async (req, 
 
 router.get('/institution/:InstitutionID', tokenControl, institutionValidator.find, async (req, res) => {
     try {
-        const InstitutionID = req.params.InstitutionID;
-        if ([Roles.Root, Roles.Administrator].indexOf(req.decode.UserStatusName) != -1 || InstitutionID == req.decode.InstitutionID) {
+        if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) === -1 || req.params.InstitutionID == req.decode.InstitutionID) {
             result = await institutionTransactions.findAsync(req.params.InstitutionID);
             res.json(result);
         }

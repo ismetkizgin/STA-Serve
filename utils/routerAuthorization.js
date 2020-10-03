@@ -1,16 +1,32 @@
-const roles = require('../models/roles');
 const Roles = require('../models/roles');
 
 module.exports = {
     institution: {
-        POST: [Roles.Root, Roles.Administrator],
-        PUT: [Roles.Root, Roles.Administrator],
-        DELETE: [Roles.Root, Roles.Administrator],
+        POST: {
+            Authorize: [Roles.Root, Roles.Administrator]
+        },
+        PUT: {
+            Authorize: [Roles.Root, Roles.Administrator]
+        },
+        DELETE: {
+            Authorize: [Roles.Root, Roles.Administrator]
+        },
+        GET: {
+            Institution_Transactions: [Roles.Editor, Roles.InstitutionAdmin]
+        }
     },
     user: {
-        POST: [Roles.Root, Roles.Administrator],
-        PUT: [Roles.Root, Roles.Administrator],
-        DELETE: [Roles.Root, Roles.Administrator],
-        GET: [Roles.Root, Roles.Administrator],
+        POST: {
+            Authorize: [Roles.Root, Roles.Administrator, Roles.InstitutionAdmin],
+            Institution_Transactions: [Roles.InstitutionAdmin]
+        },
+        PUT: {
+            Authorize: [Roles.Root, Roles.Administrator, Roles.InstitutionAdmin],
+            Institution_Transactions: [Roles.InstitutionAdmin]
+        },
+        DELETE: {
+            Authorize: [Roles.Root, Roles.Administrator, Roles.InstitutionAdmin],
+            Institution_Transactions: [Roles.InstitutionAdmin]
+        }
     }
 }
