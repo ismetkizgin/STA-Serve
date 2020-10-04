@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.3.1 (2020-10-04)
+
+
+### Bug Fixes
+
+* fix for "User Find" router ([fb93d1b](https://github.com/ismetkizgin/STA-Serve/commit/fb93d1b26b83a9d9970afa97b7b0b4543f403873))
+* fix for user update validator ([ecba802](https://github.com/ismetkizgin/STA-Serve/commit/ecba802c7301670193ec5576ab968da86f7514ef))
+
 ## 1.3.0 (2020-09-24)
 
 ### Features
