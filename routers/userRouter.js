@@ -3,6 +3,7 @@ const TransactionsFactory = require('../database/transactionFactory');
 const { authMessages } = require('../fixtures/messageStatus.json');
 const { validator, verifyToken, authorization } = require('../middleware');
 const userTransactions = TransactionsFactory.creating('userTransactions');
+const authTransactions = TransactionsFactory.creating('authTransactions');
 const userValidator = validator.userValidator;
 const tokenControl = verifyToken.tokenControl;
 const authControl = authorization.authControl;
@@ -10,20 +11,27 @@ const userInsertAuthControl = authorization.userInsertAuthControl;
 let { routerAuthorization } = require('../utils');
 routerAuthorization = routerAuthorization['user'];
 
-router.get('/user', tokenControl, userValidator.list, authControl, async (req, res) => {
+router.get('/user', tokenControl, authControl, async (req, res) => {
     try {
-        const result = await userTransactions.listAsync(req.body);
+        let result;
+        if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) === -1)
+            result = await userTransactions.listAsync(req.decode);
+        else
+            result = await userTransactions.listInstitutionUser(req.decode);
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
     }
 });
 
-router.get('/user/:UserID', tokenControl, userValidator.find, authControl, async (req, res) => {
+router.get('/user/:UserID', tokenControl, userValidator.find, async (req, res) => {
     try {
-        
         const result = await userTransactions.findAsync(req.params.UserID);
-        res.json(result);
+        if (req.params.UserID == req.decode.UserID || routerAuthorization[req.method].Find_Authorize.indexOf(req.decode.UserStatusName) != -1 || (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1 && result.InstitutionID == req.decode.InstitutionID)) {
+            res.json(result);
+            return;
+        }
+        res.status(authMessages.Unauthorized.status).json({ message: authMessages.Unauthorized.message });
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
     }
@@ -31,12 +39,13 @@ router.get('/user/:UserID', tokenControl, userValidator.find, authControl, async
 
 router.delete('/user', tokenControl, userValidator.delete, authControl, async (req, res) => {
     try {
-        if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1) {
-            const userResult = await userTransactions.findAsync(req.body.UserID);
-            if (userResult.InstitutionID != req.decode.InstitutionID) {
-                res.status(authMessages.Unauthorized.status).json({ message: authMessages.Unauthorized.message });
-                return;
-            }
+        const userResult = await userTransactions.findAsync(req.body.UserID);
+        const statusResult = await authTransactions.additiveUserTypesAsync(req.decode.UserStatusName);
+        if ((routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1
+            && userResult.InstitutionID != req.decode.InstitutionID)
+            || statusResult.findIndex((statusName) => statusName.UserStatusName == userResult.UserStatusName) === -1) {
+            res.status(authMessages.Unauthorized.status).json({ message: authMessages.Unauthorized.message });
+            return;
         }
         const result = await userTransactions.deleteAsync(req.body.UserID);
         res.json(result);
@@ -63,12 +72,13 @@ router.post('/user', tokenControl, userValidator.insert, authControl, userInsert
 
 router.put('/user', tokenControl, userValidator.update, authControl, userInsertAuthControl, async (req, res) => {
     try {
-        if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1) {
-            const userResult = await userTransactions.findAsync(req.body.UserID);
-            if (userResult.InstitutionID != req.decode.InstitutionID) {
-                res.status(authMessages.Unauthorized.status).json({ message: authMessages.Unauthorized.message });
-                return;
-            }
+        const userResult = await userTransactions.findAsync(req.body.UserID);
+        const statusResult = await authTransactions.additiveUserTypesAsync(req.decode.UserStatusName);
+        if ((routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1
+            && userResult.InstitutionID != req.decode.InstitutionID)
+            || statusResult.findIndex((statusName) => statusName.UserStatusName == userResult.UserStatusName) === -1) {
+            res.status(authMessages.Unauthorized.status).json({ message: authMessages.Unauthorized.message });
+            return;
         }
         const result = await userTransactions.updateAsync(req.body);
         res.json(result);

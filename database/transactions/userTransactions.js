@@ -70,12 +70,11 @@ class UserTransactions {
     }
 
     async listAsync(values) {
-        const limitAndOffset = values.offset == null ? `${values.limit == null ? '' : `LIMIT ${values.limit}`}` : `LIMIT ${values.offset},${values.limit}`;
         return new Promise((resolve, reject) => {
-            this._datacontext.query(`SELECT * FROM vwUserList ORDER BY UserFirstName, UserLastName DESC ${limitAndOffset}`, (error, result) => {
+            this._datacontext.query(`CALL prUserList(?)`, [values.UserStatusName], (error, result) => {
                 if (!error) {
-                    if (result.length > 0)
-                        resolve(result);
+                    if (result[0].length > 0)
+                        resolve(result[0]);
                     else
                         reject(userMessages.list.Not_Found);
                 }
@@ -97,6 +96,24 @@ class UserTransactions {
                 }
                 else {
                     reject({ status: 500, message: error.message });
+                }
+            });
+        });
+    }
+
+    async listInstitutionUser(values) {
+        return new Promise((resolve, reject) => {
+            this._datacontext.query(`CALL prInstitutionUserList(?,?)`, [values.UserStatusName, values.InstitutionID], (error, result) => {
+                if (!error) {
+                    if (result[0].length > 0)
+                        resolve(result[0]);
+                    else
+                        reject(userMessages.list.Not_Found);
+                }
+                else {
+                    reject({
+                        status: 500, message: error.message
+                    });
                 }
             });
         });

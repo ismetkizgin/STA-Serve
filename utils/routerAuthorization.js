@@ -12,7 +12,7 @@ module.exports = {
             Authorize: [Roles.Root, Roles.Administrator]
         },
         GET: {
-            Institution_Transactions: [Roles.Editor, Roles.InstitutionAdmin]
+            Individual_Transactions: [Roles.Editor, Roles.InstitutionAdmin]
         }
     },
     user: {
@@ -27,6 +27,11 @@ module.exports = {
         DELETE: {
             Authorize: [Roles.Root, Roles.Administrator, Roles.InstitutionAdmin],
             Institution_Transactions: [Roles.InstitutionAdmin]
+        },
+        GET: {
+            Authorize: [Roles.Root, Roles.Administrator, Roles.InstitutionAdmin],
+            Institution_Transactions: [Roles.InstitutionAdmin],
+            Find_Authorize: [Roles.Root, Roles.Administrator]
         }
     }
 }

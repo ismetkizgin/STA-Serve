@@ -76,7 +76,7 @@ class InstitutionTransactions {
             this._datacontext.query(`SELECT * FROM tblInstitution WHERE InstitutionID=?`, [InstitutionID], (error, result) => {
                 if (!error) {
                     if (result.length > 0)
-                        resolve(result);
+                        resolve(result[0]);
                     else
                         reject(institutionMessage.list.Not_Found);
                 }

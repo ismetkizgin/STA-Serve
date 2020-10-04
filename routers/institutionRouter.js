@@ -36,10 +36,10 @@ router.delete('/institution', tokenControl, authControl, institutionValidator.de
     }
 });
 
-router.get('/institution', tokenControl, institutionValidator.list, async (req, res) => {
+router.get('/institution', tokenControl, authControl, institutionValidator.list, async (req, res) => {
     try {
         let result;
-        if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) === -1)
+        if (routerAuthorization[req.method].Individual_Transactions.indexOf(req.decode.UserStatusName) === -1)
             result = await institutionTransactions.listAsync(req.body);
         else
             result = await institutionTransactions.findAsync(req.decode.InstitutionID);
@@ -49,15 +49,14 @@ router.get('/institution', tokenControl, institutionValidator.list, async (req, 
     }
 });
 
-router.get('/institution/:InstitutionID', tokenControl, institutionValidator.find, async (req, res) => {
+router.get('/institution/:InstitutionID', tokenControl, authControl, institutionValidator.find, async (req, res) => {
     try {
-        if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) === -1 || req.params.InstitutionID == req.decode.InstitutionID) {
-            result = await institutionTransactions.findAsync(req.params.InstitutionID);
-            res.json(result);
-        }
-        else {
+        if (routerAuthorization[req.method].Individual_Transactions.indexOf(req.decode.UserStatusName) != -1 && req.params.InstitutionID != req.decode.InstitutionID) {
             res.status(authMessages.Unauthorized.status).json({ message: authMessages.Unauthorized.message });
+            return;
         }
+        const result = await institutionTransactions.findAsync(req.params.InstitutionID);
+        res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
     }
