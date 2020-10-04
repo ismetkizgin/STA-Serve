@@ -86,9 +86,9 @@ class UserTransactions {
         });
     }
 
-    async findAsync(UserID) {
+    async findAsync(values) {
         return new Promise((resolve, reject) => {
-            this._datacontext.query(`SELECT * FROM vwUserList WHERE UserID=?`, [UserID], (error, result) => {
+            this._datacontext.query(`SELECT vwUserList.* FROM vwUserList LEFT JOIN tblUserStatus ON vwUserList.UserStatusName=tblUserStatus.UserStatusName WHERE tblUserStatus.UserStatusNumber<(SELECT UserStatusNumber FROM tblUserStatus WHERE UserStatusNAme=?) AND UserID=?`, [values.UserStatusName, values.UserID], (error, result) => {
                 if (!error) {
                     if (result.length > 0)
                         resolve(result[0]);

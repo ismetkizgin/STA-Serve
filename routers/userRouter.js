@@ -26,7 +26,7 @@ router.get('/user', tokenControl, authControl, async (req, res) => {
 
 router.get('/user/:UserID', tokenControl, userValidator.find, async (req, res) => {
     try {
-        const result = await userTransactions.findAsync(req.params.UserID);
+        const result = await userTransactions.findAsync({ UserID: req.params.UserID, UserStatusName: req.decode.UserStatusName });
         if (req.params.UserID == req.decode.UserID || routerAuthorization[req.method].Find_Authorize.indexOf(req.decode.UserStatusName) != -1 || (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1 && result.InstitutionID == req.decode.InstitutionID)) {
             res.json(result);
             return;
