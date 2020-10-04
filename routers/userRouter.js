@@ -15,9 +15,9 @@ router.get('/user', tokenControl, authControl, async (req, res) => {
     try {
         let result;
         if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) === -1)
-            result = await userTransactions.listAsync(req.decode);
+            result = await userTransactions.listAsync(Object.assign(req.body, { UserStatusName: req.decode.UserStatusName }));
         else
-            result = await userTransactions.listInstitutionUser(req.decode);
+            result = await userTransactions.listInstitutionUser(Object.assign(req.body, req.decode));
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });

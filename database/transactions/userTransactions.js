@@ -70,11 +70,12 @@ class UserTransactions {
     }
 
     async listAsync(values) {
+        const limitAndOffset = values.offset == null ? `${values.limit == null ? '' : `LIMIT ${values.limit}`}` : `LIMIT ${values.offset},${values.limit}`;
         return new Promise((resolve, reject) => {
-            this._datacontext.query(`CALL prUserList(?)`, [values.UserStatusName], (error, result) => {
+            this._datacontext.query(`SELECT vwUserList.* FROM vwUserList LEFT JOIN tblUserStatus ON vwUserList.UserStatusName=tblUserStatus.UserStatusName WHERE tblUserStatus.UserStatusNumber<(SELECT UserStatusNumber FROM tblUserStatus WHERE UserStatusNAme=?) ORDER BY UserFirstName, UserLastName ASC ${limitAndOffset}`, [values.UserStatusName], (error, result) => {
                 if (!error) {
-                    if (result[0].length > 0)
-                        resolve(result[0]);
+                    if (result.length > 0)
+                        resolve(result);
                     else
                         reject(userMessages.list.Not_Found);
                 }
@@ -102,11 +103,12 @@ class UserTransactions {
     }
 
     async listInstitutionUser(values) {
+        const limitAndOffset = values.offset == null ? `${values.limit == null ? '' : `LIMIT ${values.limit}`}` : `LIMIT ${values.offset},${values.limit}`;
         return new Promise((resolve, reject) => {
-            this._datacontext.query(`CALL prInstitutionUserList(?,?)`, [values.UserStatusName, values.InstitutionID], (error, result) => {
+            this._datacontext.query(`SELECT vwUserList.* FROM vwUserList LEFT JOIN tblUserStatus ON vwUserList.UserStatusName=tblUserStatus.UserStatusName WHERE tblUserStatus.UserStatusNumber<(SELECT UserStatusNumber FROM tblUserStatus WHERE UserStatusNAme=?) AND InstitutionID=? ORDER BY UserFirstName, UserLastName ASC ${limitAndOffset}`, [values.UserStatusName, values.InstitutionID], (error, result) => {
                 if (!error) {
-                    if (result[0].length > 0)
-                        resolve(result[0]);
+                    if (result.length > 0)
+                        resolve(result);
                     else
                         reject(userMessages.list.Not_Found);
                 }
