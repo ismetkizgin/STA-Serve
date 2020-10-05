@@ -11,7 +11,7 @@ const userInsertAuthControl = authorization.userInsertAuthControl;
 let { routerAuthorization } = require('../utils');
 routerAuthorization = routerAuthorization['user'];
 
-router.get('/user', tokenControl, authControl, async (req, res) => {
+router.get('/user', tokenControl, userValidator.list, async (req, res) => {
     try {
         let result;
         if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) === -1)
@@ -81,6 +81,15 @@ router.put('/user', tokenControl, userValidator.update, authControl, userInsertA
             return;
         }
         const result = await userTransactions.updateAsync(req.body);
+        res.json(result);
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message });
+    }
+});
+
+router.get('/user/institution/:InstitutionID', tokenControl, userValidator.list, authControl, async (req, res) => {
+    try {
+        let result = await userTransactions.InstitutionUserList({ InstitutionID: req.params.InstitutionID });
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });

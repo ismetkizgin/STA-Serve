@@ -33,5 +33,10 @@ module.exports = {
             Institution_Transactions: [Roles.InstitutionAdmin],
             Find_Authorize: [Roles.Root, Roles.Administrator]
         }
+    },
+    userinstitution: {
+        GET: {
+            Authorize: [Roles.Root, Roles.Administrator]
+        }
     }
 }
