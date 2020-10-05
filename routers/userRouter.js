@@ -39,7 +39,7 @@ router.get('/user/:UserID', tokenControl, userValidator.find, async (req, res) =
 
 router.delete('/user', tokenControl, userValidator.delete, authControl, async (req, res) => {
     try {
-        const userResult = await userTransactions.findAsync(req.body.UserID);
+        const userResult = await userTransactions.findAsync({ UserID: req.body.UserID, UserStatusName: req.decode.UserStatusName });
         const statusResult = await authTransactions.additiveUserTypesAsync(req.decode.UserStatusName);
         if ((routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1
             && userResult.InstitutionID != req.decode.InstitutionID)
