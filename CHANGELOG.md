@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.4.0 (2020-10-05)
+
+
+### Features
+
+* added institution personnel list router ([e8c5291](https://github.com/ismetkizgin/STA-Serve/commit/e8c5291fce703e20b164df98d1ded4b673d42d49))
+
 ## 1.3.1 (2020-10-04)
 
 
