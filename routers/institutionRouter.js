@@ -42,7 +42,7 @@ router.get('/institution', tokenControl, authControl, institutionValidator.list,
         if (routerAuthorization[req.method].Individual_Transactions.indexOf(req.decode.UserStatusName) === -1)
             result = await institutionTransactions.listAsync(req.body);
         else
-            result = await institutionTransactions.findAsync(req.decode.InstitutionID);
+            result = [await institutionTransactions.findAsync(req.decode.InstitutionID)];
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });

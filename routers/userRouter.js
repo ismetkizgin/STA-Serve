@@ -57,9 +57,7 @@ router.delete('/user', tokenControl, userValidator.delete, authControl, async (r
 router.post('/user', tokenControl, userValidator.insert, authControl, userInsertAuthControl, async (req, res) => {
     try {
         let body = req.body;
-        if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1 && req.body.InstitutionID == req.decode.InstitutionID)
-            body = Object.assign(body, { InstitutionID: req.decode.InstitutionID });
-        else {
+        if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1 && req.body.InstitutionID != req.decode.InstitutionID) {
             res.status(authMessages.Unauthorized.status).json({ message: authMessages.Unauthorized.message });
             return;
         }
@@ -72,11 +70,9 @@ router.post('/user', tokenControl, userValidator.insert, authControl, userInsert
 
 router.put('/user', tokenControl, userValidator.update, authControl, userInsertAuthControl, async (req, res) => {
     try {
-        const userResult = await userTransactions.findAsync(req.body.UserID);
-        const statusResult = await authTransactions.additiveUserTypesAsync(req.decode.UserStatusName);
-        if ((routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1
-            && userResult.InstitutionID != req.decode.InstitutionID)
-            || statusResult.findIndex((statusName) => statusName.UserStatusName == userResult.UserStatusName) === -1) {
+        const userResult = await userTransactions.findAsync({ UserID: req.body.UserID, UserStatusName: req.decode.UserStatusName });
+        if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1
+            && userResult.InstitutionID != req.decode.InstitutionID) {
             res.status(authMessages.Unauthorized.status).json({ message: authMessages.Unauthorized.message });
             return;
         }
