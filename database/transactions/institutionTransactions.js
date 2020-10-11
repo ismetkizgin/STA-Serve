@@ -1,5 +1,5 @@
 const { mysqlDataContext } = require('../dataContexts');
-const { institutionMessage } = require('../../fixtures/messageStatus.json');
+const { institutionMessages } = require('../../fixtures/messageStatus.json');
 
 class InstitutionTransactions {
     constructor() {
@@ -11,12 +11,12 @@ class InstitutionTransactions {
             this._datacontext.query(`INSERT INTO tblInstitution SET ?`, values, (error, result) => {
                 if (!error) {
                     if (result.affectedRows)
-                        resolve(institutionMessage.insert.Ok);
+                        resolve(institutionMessages.insert.Ok);
                     else
-                        reject(institutionMessage.insert.Internal_Server_Error)
+                        reject(institutionMessages.insert.Internal_Server_Error)
                 }
                 else {
-                    reject(error.errno == 1062 ? institutionMessage.insert.Conflict : { status: 500, message: error.message });
+                    reject(error.errno == 1062 ? institutionMessages.insert.Conflict : { status: 500, message: error.message });
                 }
             });
         });
@@ -27,12 +27,12 @@ class InstitutionTransactions {
             this._datacontext.query(`UPDATE tblInstitution SET ? WHERE InstitutionID=?`, [values, values.InstitutionID], (error, result) => {
                 if (!error) {
                     if (result.affectedRows)
-                        resolve(institutionMessage.update.Ok);
+                        resolve(institutionMessages.update.Ok);
                     else
-                        reject(institutionMessage.update.Internal_Server_Error)
+                        reject(institutionMessages.update.Internal_Server_Error)
                 }
                 else {
-                    reject(error.errno == 1062 ? institutionMessage.insert.Conflict : { status: 500, message: error.message });
+                    reject(error.errno == 1062 ? institutionMessages.insert.Conflict : { status: 500, message: error.message });
                 }
             });
         });
@@ -43,9 +43,9 @@ class InstitutionTransactions {
             this._datacontext.query(`DELETE FROM tblInstitution WHERE InstitutionID=?`, [InstitutionID], (error, result) => {
                 if (!error) {
                     if (result.affectedRows)
-                        resolve(institutionMessage.delete.Ok);
+                        resolve(institutionMessages.delete.Ok);
                     else
-                        reject(institutionMessage.delete.Gone)
+                        reject(institutionMessages.delete.Gone)
                 }
                 else {
                     reject({ status: 500, message: error.message });
@@ -62,7 +62,7 @@ class InstitutionTransactions {
                     if (result.length > 0)
                         resolve(result);
                     else
-                        reject(institutionMessage.list.Not_Found);
+                        reject(institutionMessages.list.Not_Found);
                 }
                 else {
                     reject({ status: 500, message: error.message });
@@ -78,7 +78,7 @@ class InstitutionTransactions {
                     if (result.length > 0)
                         resolve(result[0]);
                     else
-                        reject(institutionMessage.list.Not_Found);
+                        reject(institutionMessages.list.Not_Found);
                 }
                 else {
                     reject({ status: 500, message: error.message });

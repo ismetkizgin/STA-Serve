@@ -68,7 +68,7 @@
       "message": "User role was not found."
     }
   },
-  "institutionMessage": {
+  "institutionMessages": {
     "insert": {
       "Internal_Server_Error": {
         "status": 500,
@@ -104,6 +104,21 @@
       "Not_Found": {
         "status": 404,
         "message": "No institution registered to the system was found."
+      }
+    }
+  },
+  "martyrMessages": {
+    "insert": {
+      "Ok": {
+        "message": "Martyr information has been added."
+      },
+      "Internal_Server_Error": {
+        "status": 500,
+        "message": "Error while registering martyr information !"
+      },
+      "Conflict": {
+        "status": 409,
+        "message": "There is such martyr information."
       }
     }
   }
