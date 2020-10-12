@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.5.0 (2020-10-12)
+
+### Features
+
+* added "Find Martyr Information" router ([d400ef7](https://github.com/ismetkizgin/STA-Serve/commit/d400ef7a465f48b23f55d0565031a00423890318))
+* martyr information adding router has been created. ([ebd6029](https://github.com/ismetkizgin/STA-Serve/commit/ebd602928473208349c499725b3a369bb61bf677))
+* martyr information deletion router has been created ([5b518df](https://github.com/ismetkizgin/STA-Serve/commit/5b518dfb308f7bb6ee482cfc7b3aee7dd1b283e1))
+* martyr information update router has been created ([62303a7](https://github.com/ismetkizgin/STA-Serve/commit/62303a73e15cd953a4e3e86570e9f37ee1f80d0f))
+* martyr listing router has been created ([14ecdf3](https://github.com/ismetkizgin/STA-Serve/commit/14ecdf3ac3db113cd7f22f125ad9f54008de044e))
+
+
+### Bug Fixes
+
+* edit role for adding and updating users ([c3f116e](https://github.com/ismetkizgin/STA-Serve/commit/c3f116e5f6a9b9a321e189994d909f815c6405d1))
+
 ## 1.4.0 (2020-10-05)
 
 
