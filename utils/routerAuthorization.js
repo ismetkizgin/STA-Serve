@@ -45,6 +45,9 @@ module.exports = {
         },
         DELETE: {
             Institution_Transactions: [Roles.InstitutionAdmin, Roles.Editor],
+        },
+        GET: {
+            Institution_Transactions: [Roles.InstitutionAdmin, Roles.Editor],
         }
     }
 }

@@ -69,6 +69,23 @@ class MartyrTransactions {
             });
         });
     }
+
+    async listAsync(values) {
+        const limitAndOffset = values.offset == null ? `${values.limit == null ? '' : `LIMIT ${values.limit}`}` : `LIMIT ${values.offset},${values.limit}`;
+        return new Promise((resolve, reject) => {
+            this._datacontext.query(`SELECT * FROM tblMartyr${values.InstitutionID ? ` where InstitutionID=${values.InstitutionID}` : null} ORDER BY MartyrFirstName, MartyrLastName ASC ${limitAndOffset}`, (error, result) => {
+                if (!error) {
+                    if (result.length > 0)
+                        resolve(result);
+                    else
+                        reject(martyrMessages.list.Not_Found);
+                }
+                else {
+                    reject({ status: 500, message: error.message });
+                }
+            });
+        });
+    }
 }
 
 module.exports = MartyrTransactions;
