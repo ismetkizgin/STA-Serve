@@ -38,5 +38,10 @@ module.exports = {
         GET: {
             Authorize: [Roles.Root, Roles.Administrator]
         }
+    },
+    martyr: {
+        PUT: {
+            Institution_Transactions: [Roles.InstitutionAdmin, Roles.Editor],
+        }
     }
 }
