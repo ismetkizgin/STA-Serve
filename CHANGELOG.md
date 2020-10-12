@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.5.1 (2020-10-12)
+
+
+### Bug Fixes
+
+* file naming fix for image upload ([f5c1a49](https://github.com/ismetkizgin/STA-Serve/commit/f5c1a497a24a1e2a2d705feb49ea922c533c8c38))
+* fix for martyr list query ([3d3f513](https://github.com/ismetkizgin/STA-Serve/commit/3d3f513d4163f94b5a081739cbca097f70d1c113))
+
 ## 1.5.0 (2020-10-12)
 
 ### Features
