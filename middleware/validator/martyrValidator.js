@@ -69,6 +69,17 @@ class MartyrValidator {
             res.status(validateMessage.status).json({ message: validateMessage.message });
         }
     }
+
+    static async find(req, res, next) {
+        try {
+            await joi.object({
+                MartyrID: joi.number().min(1).required(),
+            }).validateAsync({ MartyrID: parseInt(req.params.MartyrID) });
+            next();
+        } catch (error) {
+            res.status(validateMessage.status).json({ message: validateMessage.message });
+        }
+    }
 }
 
 module.exports = MartyrValidator;
