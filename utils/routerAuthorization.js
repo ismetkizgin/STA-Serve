@@ -42,6 +42,9 @@ module.exports = {
     martyr: {
         PUT: {
             Institution_Transactions: [Roles.InstitutionAdmin, Roles.Editor],
+        },
+        DELETE: {
+            Institution_Transactions: [Roles.InstitutionAdmin, Roles.Editor],
         }
     }
 }

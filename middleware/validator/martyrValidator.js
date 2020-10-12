@@ -43,7 +43,17 @@ class MartyrValidator {
             }).validateAsync(req.body);
             next();
         } catch (error) {
-            await multerImageUpload.remove(req.file.path);
+            res.status(validateMessage.status).json({ message: validateMessage.message });
+        }
+    }
+
+    static async delete(req, res, next) {
+        try {
+            await joi.object({
+                MartyrID: joi.number().required(),
+            }).validateAsync(req.body);
+            next();
+        } catch (error) {
             res.status(validateMessage.status).json({ message: validateMessage.message });
         }
     }

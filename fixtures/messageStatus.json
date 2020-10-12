@@ -133,7 +133,16 @@
     "list": {
       "Not_Found": {
         "status": 404,
-        "message": "No institution registered to the system was found."
+        "message": "No martyr information registered to the system was found."
+      }
+    },
+    "delete": {
+      "Ok": {
+        "message": "Martyr information has been deleted."
+      },
+      "Gone": {
+        "status": 410,
+        "message": "There is no such martyr information."
       }
     }
   }
