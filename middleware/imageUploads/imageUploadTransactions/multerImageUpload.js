@@ -16,7 +16,7 @@ class MulterImageUpload extends ImageUpload {
                     cb(null, `./uploads/${req.path.replace(/[^a-zA-Z -]/g, '')}`);
                 },
                 filename: function (req, file, cb) {
-                    cb(null, new Date().toISOString() + file.originalname);
+                    cb(null, new Date().toISOString().replace(/[^0-9]/g, '-') + file.originalname);
                 }
             }),
             limits: {
