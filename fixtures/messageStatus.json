@@ -145,5 +145,13 @@
         "message": "There is no such martyr information."
       }
     }
+  },
+  "rankMessages": {
+    "list": {
+      "Not_Found": {
+        "status": 404,
+        "message": "No rank information registered to the system was found."
+      }
+    }
   }
 }
