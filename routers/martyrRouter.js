@@ -9,9 +9,12 @@ routerAuthorization = routerAuthorization['martyr'];
 const ImageUploadFactory = require('../middleware/imageUploads/imageUploadFactory');
 const multerImageUpload = ImageUploadFactory.creating('multerImageUpload');
 const { authMessages } = require('../fixtures/messageStatus.json');
+const moment = require('moment');
 
 router.post('/martyr', tokenControl, multerImageUpload.upload, martyrValidator.insert, async (req, res) => {
     try {
+        req.body.MartyrDateOfBrith = moment(req.body.MartyrDateOfBrith).format('DD/MM/YYYY');
+        req.body.MartyrDateOfDeath = moment(req.body.MartyrDateOfDeath).format('DD/MM/YYYY');
         const result = await martyrTransactions.insertAsync(Object.assign(req.body, { InstitutionID: req.decode.InstitutionID, MartyrImagePath: req.file.path }));
         res.json(result);
     } catch (error) {
@@ -22,6 +25,8 @@ router.post('/martyr', tokenControl, multerImageUpload.upload, martyrValidator.i
 
 router.put('/martyr', tokenControl, martyrValidator.update, async (req, res) => {
     try {
+        req.body.MartyrDateOfBrith = moment(req.body.MartyrDateOfBrith).format('DD/MM/YYYY');
+        req.body.MartyrDateOfDeath = moment(req.body.MartyrDateOfDeath).format('DD/MM/YYYY');
         const martyrFind = await martyrTransactions.findAsync(req.body.MartyrID);
         if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1
             && martyrFind.InstitutionID != req.decode.InstitutionID) {
