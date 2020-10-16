@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost:3306
--- Üretim Zamanı: 24 Eyl 2020, 22:36:37
+-- Üretim Zamanı: 16 Eki 2020, 03:33:29
 -- Sunucu sürümü: 8.0.21-0ubuntu0.20.04.4
 -- PHP Sürümü: 7.4.10
 
@@ -21,15 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Veritabanı: `sta_db`
 --
-
-DELIMITER $$
---
--- Yordamlar
---
-CREATE PROCEDURE `prAdditiveUserTypes` (IN `StatusName` VARCHAR(50))  NO SQL
-SELECT UserStatusName FROM tblUserStatus WHERE UserStatusNumber<(SELECT UserStatusNumber FROM tblUserStatus WHERE UserStatusName=StatusName)$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -56,9 +47,9 @@ CREATE TABLE `tblMartyr` (
   `MartyrID` int NOT NULL,
   `MartyrFirstName` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
   `MartyrLastName` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
-  `MartyrDateOfBrith` date NOT NULL,
+  `MartyrDateOfBirth` date NOT NULL,
   `MartyrDateOfDeath` date NOT NULL,
-  `RankID` int NOT NULL,
+  `RankName` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
   `MartyrCity` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
   `MartyrDistrict` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
   `MartyrPlaceOfDeath` varchar(200) COLLATE utf8_turkish_ci NOT NULL,
@@ -78,6 +69,18 @@ CREATE TABLE `tblMartyrImage` (
   `MartyrImagePath` int NOT NULL,
   `MartyrID` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `tblRank`
+--
+
+CREATE TABLE `tblRank` (
+  `RankName` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `RankAbbreviation` varchar(20) COLLATE utf8_turkish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
 
 -- --------------------------------------------------------
 
@@ -108,29 +111,37 @@ CREATE TABLE `tblUserStatus` (
   `UserStatusNumber` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
+--
+-- Tablo döküm verisi `tblUserStatus`
+--
 
+INSERT INTO `tblUserStatus` (`UserStatusName`, `UserStatusNumber`) VALUES
+('Administrator', 666),
+('Editor', 444),
+('Institution Admin', 555),
+('Root', 777);
 
 -- --------------------------------------------------------
 
 --
--- Tablo için tablo yapısı `tblUserStatusTransaction`
---
-
-CREATE TABLE `tblUserStatusTransaction` (
-  `UserStatusTransactionName` varchar(100) COLLATE utf8_turkish_ci NOT NULL,
-  `UserStatusName` varchar(50) COLLATE utf8_turkish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
-
-
--- --------------------------------------------------------
-
---
--- Görünüm yapısı durumu `vwAuth`
+-- Görünüm yapısı durumu `vwMartyrList`
 -- (Asıl görünüm için aşağıya bakın)
 --
-CREATE TABLE `vwAuth` (
-`UserStatusName` varchar(100)
-,`UserStatusTransactionName` varchar(100)
+CREATE TABLE `vwMartyrList` (
+`MartyrID` int
+,`MartyrFirstName` varchar(50)
+,`MartyrLastName` varchar(50)
+,`MartyrDateOfBirth` date
+,`MartyrDateOfDeath` date
+,`RankName` varchar(50)
+,`MartyrCity` varchar(50)
+,`MartyrDistrict` varchar(50)
+,`MartyrPlaceOfDeath` varchar(200)
+,`MartyrContent` text
+,`MartyrImagePath` text
+,`InstitutionID` int
+,`RankAbbreviation` varchar(20)
+,`InstitutionName` varchar(150)
 );
 
 -- --------------------------------------------------------
@@ -140,25 +151,25 @@ CREATE TABLE `vwAuth` (
 -- (Asıl görünüm için aşağıya bakın)
 --
 CREATE TABLE `vwUserList` (
-`InstitutionID` int
-,`InstitutionName` varchar(150)
-,`UserEmail` varchar(100)
+`UserID` int
 ,`UserFirstName` varchar(50)
-,`UserID` int
-,`UserIdentityNo` bigint
 ,`UserLastName` varchar(50)
+,`UserIdentityNo` bigint
+,`UserEmail` varchar(100)
 ,`UserPhone` varchar(25)
 ,`UserStatusName` varchar(50)
+,`InstitutionID` int
+,`InstitutionName` varchar(150)
 );
 
 -- --------------------------------------------------------
 
 --
--- Görünüm yapısı `vwAuth`
+-- Görünüm yapısı `vwMartyrList`
 --
-DROP TABLE IF EXISTS `vwAuth`;
+DROP TABLE IF EXISTS `vwMartyrList`;
 
-CREATE VIEW `vwAuth`  AS  select `U`.`UserStatusName` AS `UserStatusName`,`T`.`UserStatusTransactionName` AS `UserStatusTransactionName` from (`tblUserStatus` `U` join `tblUserStatusTransaction` `T` on((`U`.`UserStatusName` = `T`.`UserStatusName`))) ;
+CREATE VIEW `vwMartyrList`  AS  select `tblMartyr`.`MartyrID` AS `MartyrID`,`tblMartyr`.`MartyrFirstName` AS `MartyrFirstName`,`tblMartyr`.`MartyrLastName` AS `MartyrLastName`,`tblMartyr`.`MartyrDateOfBirth` AS `MartyrDateOfBirth`,`tblMartyr`.`MartyrDateOfDeath` AS `MartyrDateOfDeath`,`tblMartyr`.`RankName` AS `RankName`,`tblMartyr`.`MartyrCity` AS `MartyrCity`,`tblMartyr`.`MartyrDistrict` AS `MartyrDistrict`,`tblMartyr`.`MartyrPlaceOfDeath` AS `MartyrPlaceOfDeath`,`tblMartyr`.`MartyrContent` AS `MartyrContent`,`tblMartyr`.`MartyrImagePath` AS `MartyrImagePath`,`tblMartyr`.`InstitutionID` AS `InstitutionID`,`tblRank`.`RankAbbreviation` AS `RankAbbreviation`,`tblInstitution`.`InstitutionName` AS `InstitutionName` from ((`tblMartyr` left join `tblRank` on((`tblMartyr`.`RankName` = `tblRank`.`RankName`))) join `tblInstitution` on((`tblInstitution`.`InstitutionID` = `tblMartyr`.`InstitutionID`))) ;
 
 -- --------------------------------------------------------
 
@@ -185,7 +196,9 @@ ALTER TABLE `tblInstitution`
 --
 ALTER TABLE `tblMartyr`
   ADD PRIMARY KEY (`MartyrID`),
-  ADD KEY `InstitutionID` (`InstitutionID`);
+  ADD UNIQUE KEY `MartyrFirstName` (`MartyrFirstName`,`MartyrLastName`),
+  ADD KEY `InstitutionID` (`InstitutionID`),
+  ADD KEY `RankName` (`RankName`);
 
 --
 -- Tablo için indeksler `tblMartyrImage`
@@ -193,6 +206,12 @@ ALTER TABLE `tblMartyr`
 ALTER TABLE `tblMartyrImage`
   ADD PRIMARY KEY (`MartyrImageID`),
   ADD KEY `MartyrID` (`MartyrID`);
+
+--
+-- Tablo için indeksler `tblRank`
+--
+ALTER TABLE `tblRank`
+  ADD PRIMARY KEY (`RankName`);
 
 --
 -- Tablo için indeksler `tblUser`
@@ -210,13 +229,6 @@ ALTER TABLE `tblUserStatus`
   ADD PRIMARY KEY (`UserStatusName`);
 
 --
--- Tablo için indeksler `tblUserStatusTransaction`
---
-ALTER TABLE `tblUserStatusTransaction`
-  ADD PRIMARY KEY (`UserStatusTransactionName`),
-  ADD KEY `UserStatusName` (`UserStatusName`);
-
---
 -- Dökümü yapılmış tablolar için AUTO_INCREMENT değeri
 --
 
@@ -224,13 +236,13 @@ ALTER TABLE `tblUserStatusTransaction`
 -- Tablo için AUTO_INCREMENT değeri `tblInstitution`
 --
 ALTER TABLE `tblInstitution`
-  MODIFY `InstitutionID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `InstitutionID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblMartyr`
 --
 ALTER TABLE `tblMartyr`
-  MODIFY `MartyrID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `MartyrID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `tblMartyrImage`
@@ -242,7 +254,7 @@ ALTER TABLE `tblMartyrImage`
 -- Tablo için AUTO_INCREMENT değeri `tblUser`
 --
 ALTER TABLE `tblUser`
-  MODIFY `UserID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `UserID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- Dökümü yapılmış tablolar için kısıtlamalar
@@ -252,7 +264,8 @@ ALTER TABLE `tblUser`
 -- Tablo kısıtlamaları `tblMartyr`
 --
 ALTER TABLE `tblMartyr`
-  ADD CONSTRAINT `tblMartyr_ibfk_1` FOREIGN KEY (`InstitutionID`) REFERENCES `tblInstitution` (`InstitutionID`);
+  ADD CONSTRAINT `tblMartyr_ibfk_1` FOREIGN KEY (`InstitutionID`) REFERENCES `tblInstitution` (`InstitutionID`),
+  ADD CONSTRAINT `tblMartyr_ibfk_2` FOREIGN KEY (`RankName`) REFERENCES `tblRank` (`RankName`);
 
 --
 -- Tablo kısıtlamaları `tblMartyrImage`
@@ -266,12 +279,6 @@ ALTER TABLE `tblMartyrImage`
 ALTER TABLE `tblUser`
   ADD CONSTRAINT `tblUser_ibfk_2` FOREIGN KEY (`InstitutionID`) REFERENCES `tblInstitution` (`InstitutionID`) ON DELETE CASCADE,
   ADD CONSTRAINT `tblUser_ibfk_3` FOREIGN KEY (`UserStatusName`) REFERENCES `tblUserStatus` (`UserStatusName`);
-
---
--- Tablo kısıtlamaları `tblUserStatusTransaction`
---
-ALTER TABLE `tblUserStatusTransaction`
-  ADD CONSTRAINT `tblUserStatusTransaction_ibfk_1` FOREIGN KEY (`UserStatusName`) REFERENCES `tblUserStatus` (`UserStatusName`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
