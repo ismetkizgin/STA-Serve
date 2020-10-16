@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.6.0 (2020-10-16)
+
+
+### Features
+
+* rank information router added ([c6d76fa](https://github.com/ismetkizgin/STA-Serve/commit/c6d76fab7bf40c15fd2b8e53ff0a4ddbc8237448))
+
+
 ## 1.5.1 (2020-10-12)
 
 
