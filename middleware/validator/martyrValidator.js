@@ -12,7 +12,7 @@ class MartyrValidator {
             await joi.object({
                 MartyrFirstName: joi.string().min(3).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı ]+$')).required(),
                 MartyrLastName: joi.string().min(3).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı ]+$')).required(),
-                MartyrDateOfBrith: joi.date().required(),
+                MartyrDateOfBirth: joi.date().required(),
                 MartyrDateOfDeath: joi.date().required(),
                 RankName: joi.string().min(2).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı ]+$')).required(),
                 MartyrCity: joi.string().min(2).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı]+$')).required(),
@@ -29,11 +29,12 @@ class MartyrValidator {
 
     static async update(req, res, next) {
         try {
+            console.log(req.body);
             await joi.object({
                 MartyrID: joi.number().required(),
                 MartyrFirstName: joi.string().min(3).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı ]+$')).required(),
                 MartyrLastName: joi.string().min(3).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı ]+$')).required(),
-                MartyrDateOfBrith: joi.date().required(),
+                MartyrDateOfBirth: joi.date().required(),
                 MartyrDateOfDeath: joi.date().required(),
                 RankName: joi.string().min(2).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı ]+$')).required(),
                 MartyrCity: joi.string().min(2).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı]+$')).required(),
