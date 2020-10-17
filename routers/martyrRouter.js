@@ -14,10 +14,10 @@ router.post('/martyr', tokenControl, multerImageUpload.upload, martyrValidator.i
     try {
         req.body.MartyrDateOfBirth = new Date(req.body.MartyrDateOfBirth);
         req.body.MartyrDateOfDeath = new Date(req.body.MartyrDateOfDeath);
-        const result = await martyrTransactions.insertAsync(Object.assign(req.body, { InstitutionID: req.decode.InstitutionID, MartyrImagePath: req.file.path }));
+        const result = await martyrTransactions.insertAsync(Object.assign(req.body, { InstitutionID: req.decode.InstitutionID, MartyrImagePath: req.file.path.replace('uploads', '') }));
         res.json(result);
     } catch (error) {
-        await multerImageUpload.remove(req.file.path);
+        await multerImageUpload.remove('uploads' + req.file.path);
         res.status(error.status || 500).json({ message: error.message });
     }
 });
@@ -48,7 +48,7 @@ router.delete('/martyr', tokenControl, martyrValidator.delete, async (req, res) 
             return;
         }
         const result = await martyrTransactions.deleteAsync(req.body.MartyrID);
-        multerImageUpload.remove(martyrFind.MartyrImagePath);
+        multerImageUpload.remove('uploads' + martyrFind.MartyrImagePath);
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
@@ -57,7 +57,11 @@ router.delete('/martyr', tokenControl, martyrValidator.delete, async (req, res) 
 
 router.get('/martyr', martyrValidator.list, async (req, res) => {
     try {
-        const result = await martyrTransactions.listAsync(req.body);
+        let result = await martyrTransactions.listAsync(req.body);
+        result = result.map(martyr => {
+            martyr.MartyrImagePath = req.app.get('api_url') + martyr.MartyrImagePath;
+            return martyr;
+        });
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
@@ -67,6 +71,7 @@ router.get('/martyr', martyrValidator.list, async (req, res) => {
 router.get('/martyr/:MartyrID', martyrValidator.find, async (req, res) => {
     try {
         const result = await martyrTransactions.findAsync(req.params.MartyrID);
+        result.MartyrImagePath = req.app.get('api_url') + result.MartyrImagePath;
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
@@ -82,9 +87,10 @@ router.put('/martyr/image/:MartyrID', tokenControl, multerImageUpload.upload, as
             return;
         }
         const result = await martyrTransactions.updateAsync({ MartyrID: req.params.MartyrID, MartyrImagePath: req.file.path });
-        multerImageUpload.remove(martyrFind.MartyrImagePath);
+        multerImageUpload.remove('uploads' + martyrFind.MartyrImagePath);
         res.json(result);
     } catch (error) {
+        multerImageUpload.remove('uploads' + martyrFind.MartyrImagePath);
         res.status(error.status || 500).json({ message: error.message });
     }
 });

@@ -22,7 +22,7 @@ class MartyrValidator {
             }).validateAsync(req.body);
             next();
         } catch (error) {
-            await multerImageUpload.remove(req.file.path);
+            await multerImageUpload.remove('uploads' + req.file.path);
             res.status(validateMessage.status).json({ message: validateMessage.message });
         }
     }
