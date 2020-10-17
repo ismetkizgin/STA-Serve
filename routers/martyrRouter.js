@@ -48,6 +48,7 @@ router.delete('/martyr', tokenControl, martyrValidator.delete, async (req, res) 
             return;
         }
         const result = await martyrTransactions.deleteAsync(req.body.MartyrID);
+        multerImageUpload.remove(martyrFind.MartyrImagePath);
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });

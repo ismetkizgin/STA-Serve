@@ -29,7 +29,6 @@ class MartyrValidator {
 
     static async update(req, res, next) {
         try {
-            console.log(req.body);
             await joi.object({
                 MartyrID: joi.number().required(),
                 MartyrFirstName: joi.string().min(3).pattern(new RegExp('^[A-Za-zÇçÖöŞşÜüĞğİı ]+$')).required(),
