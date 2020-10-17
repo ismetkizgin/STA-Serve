@@ -153,5 +153,9 @@
         "message": "No rank information registered to the system was found."
       }
     }
+  },
+  "imageUpload": {
+    "status": 417,
+    "message": "A picture in the correct format is needed for the process to take place."
   }
 }

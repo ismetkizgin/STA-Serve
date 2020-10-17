@@ -2,7 +2,7 @@ const multer = require('multer');
 const ImageUpload = require('../base/imageUpload');
 const fs = require('fs');
 const { promisify } = require('util');
-const { validateMessage } = require('../../../fixtures/messageStatus.json');
+const { imageUpload } = require('../../../fixtures/messageStatus.json');
 
 class MulterImageUpload extends ImageUpload {
     constructor() {
@@ -13,7 +13,7 @@ class MulterImageUpload extends ImageUpload {
         multer({
             storage: multer.diskStorage({
                 destination: function (req, file, cb) {
-                    cb(null, `./uploads/${req.path.replace(/[^a-zA-Z -]/g, '')}`);
+                    cb(null, `./uploads/${req.path.replace(/[^a-zA-Z -]/g, '').replace('image','')}`);
                 },
                 filename: function (req, file, cb) {
                     cb(null, new Date().toISOString().replace(/[^0-9]/g, '-') + file.originalname);
@@ -33,7 +33,7 @@ class MulterImageUpload extends ImageUpload {
 
         }).single('Image')(req, res, function (err) {
             if (err instanceof multer.MulterError || err || req.file == null) {
-                res.status(validateMessage.status).json({ message: validateMessage.message });
+                res.status(imageUpload.status).json({ message: imageUpload.message });
             } else {
                 next();
             }
