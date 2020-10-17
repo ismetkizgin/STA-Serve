@@ -55,11 +55,8 @@ router.delete('/martyr', tokenControl, martyrValidator.delete, async (req, res) 
     }
 });
 
-router.get('/martyr', tokenControl, martyrValidator.list, async (req, res) => {
+router.get('/martyr', martyrValidator.list, async (req, res) => {
     try {
-        let body = req.body;
-        if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1)
-            body = Object.assign(body, { InstitutionID: req.decode.InstitutionID });
         const result = await martyrTransactions.listAsync(req.body);
         res.json(result);
     } catch (error) {
@@ -67,14 +64,9 @@ router.get('/martyr', tokenControl, martyrValidator.list, async (req, res) => {
     }
 });
 
-router.get('/martyr/:MartyrID', tokenControl, martyrValidator.find, async (req, res) => {
+router.get('/martyr/:MartyrID', martyrValidator.find, async (req, res) => {
     try {
         const result = await martyrTransactions.findAsync(req.params.MartyrID);
-        if (routerAuthorization[req.method].Institution_Transactions.indexOf(req.decode.UserStatusName) != -1
-            && result.InstitutionID != req.decode.InstitutionID) {
-            res.status(authMessages.Unauthorized.status).json({ message: authMessages.Unauthorized.message });
-            return;
-        }
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
