@@ -121,7 +121,7 @@ class UserTransactions {
         });
     }
 
-    async InstitutionUserList(values){
+    async InstitutionUserList(values) {
         const limitAndOffset = values.offset == null ? `${values.limit == null ? '' : `LIMIT ${values.limit}`}` : `LIMIT ${values.offset},${values.limit}`;
         return new Promise((resolve, reject) => {
             this._datacontext.query(`SELECT * FROM vwUserList WHERE InstitutionID=? ${limitAndOffset}`, [values.InstitutionID], (error, result) => {
@@ -135,6 +135,22 @@ class UserTransactions {
                     reject({
                         status: 500, message: error.message
                     });
+                }
+            });
+        });
+    }
+
+    async changePasswordAsync(values) {
+        return new Promise((resolve, reject) => {
+            this._datacontext.query(`UPDATE tblUser SET UserPassword=? WHERE UserPassword=? AND UserID=?`, [values.UserNewPassword, values.UserPassword, values.UserID], (error, result) => {
+                if (!error) {
+                    if (result.affectedRows)
+                        resolve(userMessages.changePassword.Ok);
+                    else
+                        reject(userMessages.changePassword.Bad_Request);
+                }
+                else {
+                    reject({ status: 500, message: error.message });
                 }
             });
         });

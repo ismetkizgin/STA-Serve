@@ -56,6 +56,15 @@
         "status": 500,
         "message": "An error occurred while updating user information."
       }
+    },
+    "changePassword": {
+      "Bad_Request": {
+        "status": 400,
+        "message": "User password does not match."
+      },
+      "Ok":{
+        "message": "The user password has been changed successfully."
+      }
     }
   },
   "authMessages": {

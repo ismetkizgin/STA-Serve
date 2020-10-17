@@ -1,7 +1,8 @@
 const router = require('express')();
 const jwt = require('jsonwebtoken');
 const TransactionsFactory = require('../database/transactionFactory');
-const { validator, verifyToken, authorization } = require('../middleware');
+const { validator, verifyToken } = require('../middleware');
+const { authMessages } = require('../fixtures/messageStatus.json');
 const userTransactions = TransactionsFactory.creating('userTransactions');
 const authTransactions = TransactionsFactory.creating('authTransactions');
 const authValidator = validator.authValidator;
@@ -30,6 +31,15 @@ router.delete('/my-account-delete', tokenControl, async (req, res) => {
 router.get('/role', tokenControl, async (req, res) => {
     try {
         const result = await authTransactions.additiveUserTypesAsync(req.decode.UserStatusName);
+        res.json(result);
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message });
+    }
+});
+
+router.put('/change-password', tokenControl, authValidator.changePassword, async (req, res) => {
+    try {
+        const result = await userTransactions.changePasswordAsync(Object.assign(req.body, { UserID: req.decode.UserID }));
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
