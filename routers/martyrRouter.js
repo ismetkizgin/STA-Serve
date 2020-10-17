@@ -86,7 +86,7 @@ router.put('/martyr/image/:MartyrID', tokenControl, multerImageUpload.upload, as
             res.status(authMessages.Unauthorized.status).json({ message: authMessages.Unauthorized.message });
             return;
         }
-        const result = await martyrTransactions.updateAsync({ MartyrID: req.params.MartyrID, MartyrImagePath: req.file.path });
+        const result = await martyrTransactions.updateAsync({ MartyrID: req.params.MartyrID, MartyrImagePath: req.file.path.replace('uploads', '') });
         multerImageUpload.remove('uploads' + martyrFind.MartyrImagePath);
         res.json(result);
     } catch (error) {
