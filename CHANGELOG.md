@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.7.1 (2020-10-18)
+
+
+### Bug Fixes
+
+* fix for image upload path ([66ea3e5](https://github.com/ismetkizgin/STA-Serve/commit/66ea3e527e6c1ebeb14b3008326c8709e313ae1a))
+
+
 ## 1.7.0 (2020-10-18)
 
 
