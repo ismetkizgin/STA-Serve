@@ -1,4 +1,4 @@
 node_modules
 .env
-uploads/martyr/*
+public/uploads/martyr/*
 !.gitkeep

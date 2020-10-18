@@ -13,7 +13,7 @@ class MulterImageUpload extends ImageUpload {
         multer({
             storage: multer.diskStorage({
                 destination: function (req, file, cb) {
-                    cb(null, `./uploads/${req.path.replace(/[^a-zA-Z -]/g, '').replace('image','')}`);
+                    cb(null, `./public/images/${req.path.replace(/[^a-zA-Z -]/g, '').replace('image','')}`);
                 },
                 filename: function (req, file, cb) {
                     cb(null, new Date().toISOString().replace(/[^0-9]/g, '-') + file.originalname);

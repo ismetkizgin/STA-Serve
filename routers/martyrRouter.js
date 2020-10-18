@@ -14,10 +14,10 @@ router.post('/martyr', tokenControl, multerImageUpload.upload, martyrValidator.i
     try {
         req.body.MartyrDateOfBirth = new Date(req.body.MartyrDateOfBirth);
         req.body.MartyrDateOfDeath = new Date(req.body.MartyrDateOfDeath);
-        const result = await martyrTransactions.insertAsync(Object.assign(req.body, { InstitutionID: req.decode.InstitutionID, MartyrImagePath: req.file.path.replace('uploads', '') }));
+        const result = await martyrTransactions.insertAsync(Object.assign(req.body, { InstitutionID: req.decode.InstitutionID, MartyrImagePath: req.file.path.replace('public', '') }));
         res.json(result);
     } catch (error) {
-        await multerImageUpload.remove('uploads' + req.file.path);
+        await multerImageUpload.remove('public' + req.file.path);
         res.status(error.status || 500).json({ message: error.message });
     }
 });
@@ -48,7 +48,7 @@ router.delete('/martyr', tokenControl, martyrValidator.delete, async (req, res) 
             return;
         }
         const result = await martyrTransactions.deleteAsync(req.body.MartyrID);
-        multerImageUpload.remove('uploads' + martyrFind.MartyrImagePath);
+        multerImageUpload.remove('public' + martyrFind.MartyrImagePath);
         res.json(result);
     } catch (error) {
         res.status(error.status || 500).json({ message: error.message });
@@ -86,11 +86,11 @@ router.put('/martyr/image/:MartyrID', tokenControl, multerImageUpload.upload, as
             res.status(authMessages.Unauthorized.status).json({ message: authMessages.Unauthorized.message });
             return;
         }
-        const result = await martyrTransactions.updateAsync({ MartyrID: req.params.MartyrID, MartyrImagePath: req.file.path.replace('uploads', '') });
-        multerImageUpload.remove('uploads' + martyrFind.MartyrImagePath);
+        const result = await martyrTransactions.updateAsync({ MartyrID: req.params.MartyrID, MartyrImagePath: req.file.path.replace('public', '') });
+        multerImageUpload.remove('public' + martyrFind.MartyrImagePath);
         res.json(result);
     } catch (error) {
-        multerImageUpload.remove('uploads' + martyrFind.MartyrImagePath);
+        multerImageUpload.remove('public' + martyrFind.MartyrImagePath);
         res.status(error.status || 500).json({ message: error.message });
     }
 });
