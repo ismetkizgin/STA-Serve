@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.7.0 (2020-10-18)
+
+
+### Features
+
+* user password change router created ([43b81d6](https://github.com/ismetkizgin/STA-Serve/commit/43b81d6d1ea52b67a2f29243d24c6fd28bccd903))
+* martyr image update router added ([36383fd](https://github.com/ismetkizgin/STA-Serve/commit/36383fd3fb4cb8d0415ffd535c05f8bed7efeafb))
+
+
+### Bug Fixes
+
+* fix for martyr image update router ([7a5ea22](https://github.com/ismetkizgin/STA-Serve/commit/7a5ea22199d5c531b002d65fe98b720cd147a5de))
+* fix for martyr information routers ([8437044](https://github.com/ismetkizgin/STA-Serve/commit/8437044646086b47d0e9311440c0367d55298a8a))
+
+
 ## 1.6.0 (2020-10-16)
 
 
