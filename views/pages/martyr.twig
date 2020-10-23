@@ -1,0 +1,137 @@
+ <div class="content-page tabcontent" id="tabTest">
+            <div class="content-code"></div>
+            <div class="content">
+                <div class="overflow-hidden content-section">
+                    <h1>Martyr Transacsions</h1>
+                    <p>Martyr Transacsions./p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Martyr Update</h2>
+                    <pre><code>
+#Request Example
+PUT <url id="path">update-martyr</url>
+    {
+        "MartyrID": 6,
+        "MartyrFirstName": "STA",
+        "MartyrLastName": "SERVE",
+        "MartyrDateOfBrith": "12.12.2020",
+        "MartyrDateOfDeath": "12.12.2020",
+        "Rank": "xxx",
+        "MartyrCity": "Manisa",
+        "MartyrDistrict": "Turgutlu"
+    }    
+Result Example:
+{
+    "message": "Must have correct data entry."
+}
+        </code></pre>
+                    <p>For the martyr update transaction, you need to make a PUT call to the URL below :
+                        <br>
+                        <code class="higlighted" id="path">update-martyr</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Martyr List</h2>
+                    <pre><code>
+#Request Example
+GET <url id="path">list-martyr</url>
+        
+Reusult Example:
+{
+    {
+        "MartyrID": 81,
+        "MartyrFirstName": "abc",
+        "MartyrLastName": "dneeme",
+        "MartyrDateOfBirth": "2020-04-02T00:00:00.000Z",
+        "MartyrDateOfDeath": "1233-12-31T00:00:00.000Z",
+        "RankName": "xx",
+        "MartyrCity": "BİLECİK",
+        "MartyrDistrict": "İNHİSAR",
+        "MartyrPlaceOfDeath": "Kozluk Batman",
+        "MartyrContent": "<p>sadsafdfsfgds dgbad agavc addgads</p>\n",
+        "MartyrImagePath": "https://sta-serve.herokuapp.com/images/martyr/2020-10-18-19-50-30-664-Ömer_Halisdemir.png",
+        "InstitutionID": 1,
+        "RankAbbreviation": "x",
+        "InstitutionName": "STA Kurumu"
+    },
+    {
+        "MartyrID": 61,
+        "MartyrFirstName": "furkan",
+        "MartyrLastName": "söğüt",
+        "MartyrDateOfBirth": "1998-09-02T00:00:00.000Z",
+        "MartyrDateOfDeath": "2020-08-09T00:00:00.000Z",
+        "RankName": "xx",
+        "MartyrCity": "GAZİANTEP",
+        "MartyrDistrict": "ŞAHİNBEY",
+        "MartyrPlaceOfDeath": "yayaya",
+        "MartyrContent": "<p>Yazılım m&uuml;hendisi. 22 yaşında</p>\n",
+        "MartyrImagePath": "https://sta-serve.herokuapp.com/images/martyr/2020-10-19-13-34-08-645-github.jpeg",
+        "InstitutionID": 1,
+        "RankAbbreviation": "x",
+        "InstitutionName": "STA Kurumu"
+    }
+}
+        </code></pre>
+                    <p>For the list get, you need to make a GET call to the URL below :
+                        <br>
+                        <code class="higlighted" id="path">list-martyr</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Martyr ID</h2>
+                    <pre><code>
+#Request Example
+GET <url id="path">id-martyr</url>      
+Reusult Example:
+{
+    "message": "No martyr information registered to the system was found."
+}
+        </code></pre>
+                    <p>For the martyr ID transaction, you need to make a GET call to the URL below :
+                        <br>
+                        <code class="higlighted" id="path">id-martyr</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Martyr Delete</h2>
+                    <pre><code>
+#Request Example
+POST <url id="path">delete-martyr</url>
+{
+    "MartyrID": 57,
+}
+        
+Reusult Example:
+{
+    "message": "OK"
+}
+        </code></pre>
+                    <p>For the martyr delete transaction, you need to make a DELETE call to the URL below :
+                        <br>
+                        <code class="higlighted" id="path">delete-martyr</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Change Password</h2>
+                    <pre><code>
+#Request Example
+PUT <url id="path">change-password</url>      
+{
+    "UserPassword": "password",
+    "UserNewPassword": "1"
+}
+
+Reusult Example:
+{
+    "message": "The user password has been changed successfully."
+}
+}
+        </code></pre>
+                    <p>For the change password transaction, you need to make a PUT call to the URL below :
+                        <br>
+                        <code class="higlighted" id="path">change-password</code>
+                    </p>
+                </div>
+            </div>
+            <div class="content-code"></div>
+        </div>
