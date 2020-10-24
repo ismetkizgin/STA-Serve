@@ -50,6 +50,25 @@ Reusult Example:
                     </p>
                 </div>
                  <div class="overflow-hidden content-section">
+                    <h2>Change Password</h2>
+                    <pre><code>
+#Request Example
+PUT <url id="path">change-password</url>      
+{
+    "UserPassword": "password",
+    "UserNewPassword": "newpassword"
+}
+
+Reusult Example:
+{
+    "message": "The user password has been changed successfully."
+}</code></pre>
+                    <p>For the change password transaction, you need to make a PUT call to the URL below :
+                        <br>
+                        <code class="higlighted" id="path">change-password</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
                     <h2>Role List</h2>
                     <pre><code>
 #Request Example
@@ -69,7 +88,7 @@ Reusult Example:
                         <code class="higlighted" id="path">role</code>
                     </p>
                 </div>
-                <div class="overflow-hidden content-section">
+                 <div class="overflow-hidden content-section">
                     <h2>Token Decode</h2>
                     <pre><code>
 #Request Example
