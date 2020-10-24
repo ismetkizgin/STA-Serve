@@ -1,0 +1,179 @@
+ <div class="content-page tabcontent" id="tabMartyr">
+            <div class="content-code"></div>
+            <div class="content">
+                <div class="overflow-hidden content-section">
+                    <h1>Martyr Transacsions</h1>
+                    <p>The user performs the martyr add, update, delete, list and get information operations with the following examples.</p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Martyr Add</h2>
+                    <pre><code>
+#Request Example
+PUT {{ apiUrl }}martyr
+{
+    "MartyrFirstName": "STA",
+    "MartyrLastName": "SERVE",
+    "MartyrDateOfBrith": "12.12.2020",
+    "MartyrDateOfDeath": "12.12.2020",
+    "Rank": "xxx",
+    "MartyrCity": "Manisa",
+    "MartyrDistrict": "Turgutlu",
+    "Image": image_file
+}
+
+Result Example:
+{
+    "message": "Martyr information has been added."
+}
+        </code></pre>
+                    <p>For the martyr add transaction, you need to make a POST with Form Data call to the URL below :
+                        <br>
+                        <code class="higlighted">{{ apiUrl }}martyr</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Martyr Update</h2>
+                    <pre><code>
+#Request Example
+PUT {{ apiUrl }}martyr
+{
+    "MartyrID": 6,
+    "MartyrFirstName": "STA",
+    "MartyrLastName": "SERVE",
+    "MartyrDateOfBrith": "12.12.2020",
+    "MartyrDateOfDeath": "12.12.2020",
+    "Rank": "xxx",
+    "MartyrCity": "Manisa",
+    "MartyrDistrict": "Turgutlu"
+}    
+
+Result Example:
+{
+    "message": "Martyr information has been updated."
+}
+        </code></pre>
+                    <p>For the martyr update transaction, you need to make a PUT call to the URL below :
+                        <br>
+                        <code class="higlighted">{{ apiUrl }}martyr</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Martyr Image Update</h2>
+                    <pre><code>
+#Request Example
+PUT {{ apiUrl }}martyr/image/1
+{
+    "MartyrImage": image_file
+}    
+
+Result Example:
+{
+    "message": "Martyr information has been updated."
+}
+        </code></pre>
+                    <p>For the martyr image update transaction, you need to make a PUT with Form Data call to the URL below :
+                        <br>
+                        <code class="higlighted">{{ apiUrl }}martyr/image/:MartyrID</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Martyr Delete</h2>
+                    <pre><code>
+#Request Example
+DELETE {{ apiUrl }}martyr
+{
+    "MartyrID": 57,
+}
+        
+Reusult Example:
+{
+    "message": "Martyr information has been deleted."
+}
+        </code></pre>
+                    <p>For the martyr delete transaction, you need to make a DELETE call to the URL below :
+                        <br>
+                        <code class="higlighted">{{ apiUrl }}martyr</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Martyr List</h2>
+                    <pre><code>
+#Request Example
+GET {{ apiUrl }}martyr
+        
+Reusult Example:
+[
+    {
+        "MartyrID": 81,
+        "MartyrFirstName": "M.......",
+        "MartyrLastName": "A......",
+        "MartyrDateOfBirth": "2020-04-02T00:00:00.000Z",
+        "MartyrDateOfDeath": "1233-12-31T00:00:00.000Z",
+        "MartyrCity": "BİLECİK",
+        "MartyrDistrict": "İNHİSAR",
+        "MartyrPlaceOfDeath": "Kozluk Batman",
+        "MartyrContent": "&#60;p&#62;Lorem ipsum dolor sit amet. &#60;/p&#62;",
+        "InstitutionID": 1,
+        "RankName": "xx",
+        "RankAbbreviation": "x",
+        "InstitutionName": "STA Kurumu",
+        "MartyrImagePath": {{ apiUrl }}images/martyr/martyr_image.jpg
+    },
+    {
+        "MartyrID": 82,
+        "MartyrFirstName": "C.......",
+        "MartyrLastName": "A......",
+        "MartyrDateOfBirth": "2020-04-02T00:00:00.000Z",
+        "MartyrDateOfDeath": "1233-12-31T00:00:00.000Z",
+        "MartyrCity": "BİLECİK",
+        "MartyrDistrict": "İNHİSAR",
+        "MartyrPlaceOfDeath": "Kozluk Batman",
+        "MartyrContent": "&#60;p&#62;Lorem ipsum dolor sit amet. &#60;/p&#62;",
+        "InstitutionID": 1,
+        "RankName": "xx",
+        "RankAbbreviation": "x",
+        "InstitutionName": "STA Kurumu",
+        "MartyrImagePath": {{ apiUrl }}images/martyr/martyr_image.png
+    },
+    ...
+]
+        </code></pre>
+                    <p>For the list get, you need to make a GET call to the URL below :
+                        <br>
+                        <code class="higlighted">{{ apiUrl }}martyr</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
+                    <h2>Martyr Information</h2>
+                    <pre><code>
+#Request Example
+GET {{ apiUrl }}martyr/81
+
+Reusult Example:
+{
+    "MartyrID": 81,
+    "MartyrFirstName": "M.......",
+    "MartyrLastName": "A......",
+    "MartyrDateOfBirth": "2020-04-02T00:00:00.000Z",
+    "MartyrDateOfDeath": "1233-12-31T00:00:00.000Z",
+    "MartyrCity": "BİLECİK",
+    "MartyrDistrict": "İNHİSAR",
+    "MartyrPlaceOfDeath": "Kozluk Batman",
+    "MartyrContent": "&#60;p&#62;Lorem ipsum dolor sit amet. &#60;/p&#62;",
+    "InstitutionID": 1,
+    "RankName": "xx",
+    "RankAbbreviation": "x",
+    "InstitutionName": "STA Kurumu",
+    "MartyrImagePath": {{ apiUrl }}images/martyr/martyr_image.jpg
+}
+        </code></pre>
+                    <p>For the martyr ID transaction, you need to make a GET call to the URL below :
+                        <br>
+                        <code class="higlighted">{{ apiUrl }}martyr/:MartyrID</code>
+                    </p>
+                </div>
+                
+                             
+            </div>
+            <div class="content-code"></div>
+        </div>

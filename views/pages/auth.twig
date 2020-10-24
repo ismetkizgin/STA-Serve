@@ -9,7 +9,7 @@
                     <h2>LOGIN</h2>
                     <pre><code>
 #Request Example
-POST <url id="path">login</url>
+POST {{ apiUrl }}login
 {
     "UserIdentityNo": 1,
     "UserPassword": "password"
@@ -31,14 +31,14 @@ Result Example:
 }</code></pre>
                     <p>For the user login, you need to make a POST call to the URL below : 
                         <br>
-                        <code class="higlighted" id="path">login</code>
+                        <code class="higlighted">{{ apiUrl }}login</code>
                     </p>
                 </div>
                 <div class="overflow-hidden content-section">
                     <h2>My Account Delete</h2>
                     <pre><code>
 #Request Example
-DELETE <url id="path">my-account-delete</url>      
+DELETE {{ apiUrl }}my-account-delete
 
 Reusult Example:
 {
@@ -46,14 +46,33 @@ Reusult Example:
 }</code></pre>
                     <p>For the delete my account transaction, you need to make a DELETE call to the URL below. User must login for this operation.: 
                         <br>
-                        <code class="higlighted" id="path">my-account-delete</code>
+                        <code class="higlighted">{{ apiUrl }}my-account-delete</code>
                     </p>
                 </div>
                  <div class="overflow-hidden content-section">
+                    <h2>Change Password</h2>
+                    <pre><code>
+#Request Example
+PUT {{ apiUrl }}change-password
+{
+    "UserPassword": "password",
+    "UserNewPassword": "newpassword"
+}
+
+Reusult Example:
+{
+    "message": "The user password has been changed successfully."
+}</code></pre>
+                    <p>For the change password transaction, you need to make a PUT call to the URL below :
+                        <br>
+                        <code class="higlighted">{{ apiUrl }}change-password</code>
+                    </p>
+                </div>
+                <div class="overflow-hidden content-section">
                     <h2>Role List</h2>
                     <pre><code>
 #Request Example
-GET <url id="path">role</url>
+GET {{ apiUrl }}role
         
 Reusult Example:
 [
@@ -66,14 +85,14 @@ Reusult Example:
 ]</code></pre>
                     <p>For the role list you need to make a GET call to the URL below. User must login for this operation.: 
                         <br>
-                        <code class="higlighted" id="path">role</code>
+                        <code class="higlighted">{{ apiUrl }}role</code>
                     </p>
                 </div>
-                <div class="overflow-hidden content-section">
+                 <div class="overflow-hidden content-section">
                     <h2>Token Decode</h2>
                     <pre><code>
 #Request Example
-GET <url id="path">token-decode</url>
+GET {{ apiUrl }}token-decode
 
         
 Reusult Example:
@@ -86,7 +105,7 @@ Reusult Example:
 }</code></pre>
                     <p>For the token decode, you need to make a GET call to the URL below. User must login for this operation.:
                         <br>
-                        <code class="higlighted" id="path">token-decode</code>
+                        <code class="higlighted">{{ apiUrl }}token-decode</code>
                     </p>
                 </div>
             </div>

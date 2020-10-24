@@ -9,7 +9,7 @@
                     <h2>User Add</h2>
                     <pre><code>
 #Request Example
-POST <url id="path">user</url>
+POST {{ apiUrl }}user
 {
     "UserFirstName": "STA",
     "UserLastName": "Serve",
@@ -27,14 +27,14 @@ Result Example:
 }</code></pre>
                     <p>For the add user, you need to make a POST call to the URL below. User must login for this operation.: 
                         <br>
-                        <code class="higlighted" id="path">user</code>
+                        <code class="higlighted">{{ apiUrl }}user</code>
                     </p>
                 </div>
                 <div class="overflow-hidden content-section">
                     <h2>User Update</h2>
                     <pre><code>
 #Request Example
-PUT <url id="path">user</url>
+PUT {{ apiUrl }}user
 {
     "UserID": 1,
     "UserFirstName": "STA",
@@ -52,14 +52,14 @@ Result Example:
 }</code></pre>
                     <p>For the user update, you need to make a PUT call to the URL below. User must login for this operation.: 
                         <br>
-                        <code class="higlighted" id="path">user</code>
+                        <code class="higlighted">{{ apiUrl }}user</code>
                     </p>
                 </div>
                 <div class="overflow-hidden content-section">
                     <h2>User Delete</h2>
                     <pre><code>
 #Request Example
-DELETE <url id="path">user</url>      
+DELETE {{ apiUrl }}user</url>
 {
     "UserID": 1
 }
@@ -70,14 +70,14 @@ Reusult Example:
 }</code></pre>
                     <p>For the delete user, you need to make a DELETE call to the URL below. User must login for this operation.: 
                         <br>
-                        <code class="higlighted" id="path">user</code>
+                        <code class="higlighted">{{ apiUrl }}user</code>
                     </p>
                 </div>
                 <div class="overflow-hidden content-section">
                     <h2>User List</h2>
                     <pre><code>
 #Request Example
-GET <url id="path">user</url>
+GET {{ apiUrl }}user
 
 Reusult Example:
 [
@@ -106,7 +106,7 @@ Reusult Example:
     ...
 ]
 
-GET <url id="path">user</url>
+GET {{ apiUrl }}user
 {
     "limit": 1,
     "offset": 0
@@ -128,14 +128,14 @@ Reusult Example:
 ]</code></pre>
                     <p>For the user list, you need to make a GET call to the URL below. User must login for this operation.:
                         <br>
-                        <code class="higlighted" id="path">institution</code>
+                        <code class="higlighted">{{ apiUrl }}institution</code>
                     </p>
                 </div>
                 <div class="overflow-hidden content-section">
                     <h2>User Information</h2>
                     <pre><code>
 #Request Example
-GET <url id="path">user/15</url>
+GET {{ apiUrl }}user/15
 
 Reusult Example:
 {
@@ -151,14 +151,14 @@ Reusult Example:
 }</code></pre>
                     <p>For the User Information, you need to make a GET call to the URL below. User must login for this operation.:
                         <br>
-                        <code class="higlighted" id="path">user/:UserID</code>
+                        <code class="higlighted">{{ apiUrl }}user/:UserID</code>
                     </p>
                 </div>
                 <div class="overflow-hidden content-section">
                     <h2>Institution User List</h2>
                     <pre><code>
 #Request Example
-GET <url id="path">user/institution/1</url>
+GET {{ apiUrl }}user/institution/1
 
 Reusult Example:
 [
@@ -188,7 +188,7 @@ Reusult Example:
 ]</code></pre>
                     <p>For the Institution Personnel List, you need to make a GET call to the URL below. User must login for this operation.:
                         <br>
-                        <code class="higlighted" id="path">user/institution/:InstitutionID</code>
+                        <code class="higlighted">{{ apiUrl }}user/institution/:InstitutionID</code>
                     </p>
                 </div>
             </div>
