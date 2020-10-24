@@ -8,7 +8,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'twig');
 
 app.get('/', function (req, res) {
-    res.render('index');
+    res.render('index', { apiUrl: process.env.API_URL || 'API_URL' });
 });
 
 app.use((req, res, next) => {

@@ -9,7 +9,7 @@
                     <h2>Martyr Add</h2>
                     <pre><code>
 #Request Example
-PUT <url id="path">martyr</url>
+PUT {{ apiUrl }}martyr
 {
     "MartyrFirstName": "STA",
     "MartyrLastName": "SERVE",
@@ -28,14 +28,14 @@ Result Example:
         </code></pre>
                     <p>For the martyr add transaction, you need to make a POST with Form Data call to the URL below :
                         <br>
-                        <code class="higlighted" id="path">martyr</code>
+                        <code class="higlighted">{{ apiUrl }}martyr</code>
                     </p>
                 </div>
                 <div class="overflow-hidden content-section">
                     <h2>Martyr Update</h2>
                     <pre><code>
 #Request Example
-PUT <url id="path">martyr</url>
+PUT {{ apiUrl }}martyr
 {
     "MartyrID": 6,
     "MartyrFirstName": "STA",
@@ -54,14 +54,14 @@ Result Example:
         </code></pre>
                     <p>For the martyr update transaction, you need to make a PUT call to the URL below :
                         <br>
-                        <code class="higlighted" id="path">martyr</code>
+                        <code class="higlighted">{{ apiUrl }}martyr</code>
                     </p>
                 </div>
                 <div class="overflow-hidden content-section">
                     <h2>Martyr Image Update</h2>
                     <pre><code>
 #Request Example
-PUT <url id="path">martyr/image/1</url>
+PUT {{ apiUrl }}martyr/image/1
 {
     "MartyrImage": image_file
 }    
@@ -73,14 +73,14 @@ Result Example:
         </code></pre>
                     <p>For the martyr image update transaction, you need to make a PUT with Form Data call to the URL below :
                         <br>
-                        <code class="higlighted" id="path">martyr/image/:MartyrID</code>
+                        <code class="higlighted">{{ apiUrl }}martyr/image/:MartyrID</code>
                     </p>
                 </div>
                 <div class="overflow-hidden content-section">
                     <h2>Martyr Delete</h2>
                     <pre><code>
 #Request Example
-DELETE <url id="path">martyr</url>
+DELETE {{ apiUrl }}martyr
 {
     "MartyrID": 57,
 }
@@ -92,14 +92,14 @@ Reusult Example:
         </code></pre>
                     <p>For the martyr delete transaction, you need to make a DELETE call to the URL below :
                         <br>
-                        <code class="higlighted" id="path">martyr</code>
+                        <code class="higlighted">{{ apiUrl }}martyr</code>
                     </p>
                 </div>
                 <div class="overflow-hidden content-section">
                     <h2>Martyr List</h2>
                     <pre><code>
 #Request Example
-GET <url id="path">martyr</url>
+GET {{ apiUrl }}martyr
         
 Reusult Example:
 [
@@ -117,7 +117,7 @@ Reusult Example:
         "RankName": "xx",
         "RankAbbreviation": "x",
         "InstitutionName": "STA Kurumu",
-        "MartyrImagePath": <url id="path">images/martyr/martyr_image.jpg</url>
+        "MartyrImagePath": {{ apiUrl }}images/martyr/martyr_image.jpg
     },
     {
         "MartyrID": 82,
@@ -133,21 +133,21 @@ Reusult Example:
         "RankName": "xx",
         "RankAbbreviation": "x",
         "InstitutionName": "STA Kurumu",
-        "MartyrImagePath": <url id="path">images/martyr/martyr_image.png</url>
+        "MartyrImagePath": {{ apiUrl }}images/martyr/martyr_image.png
     },
     ...
 ]
         </code></pre>
                     <p>For the list get, you need to make a GET call to the URL below :
                         <br>
-                        <code class="higlighted" id="path">martyr</code>
+                        <code class="higlighted">{{ apiUrl }}martyr</code>
                     </p>
                 </div>
                 <div class="overflow-hidden content-section">
                     <h2>Martyr Information</h2>
                     <pre><code>
 #Request Example
-GET <url id="path">martyr/81</url>     
+GET {{ apiUrl }}martyr/81
 
 Reusult Example:
 {
@@ -164,12 +164,12 @@ Reusult Example:
     "RankName": "xx",
     "RankAbbreviation": "x",
     "InstitutionName": "STA Kurumu",
-    "MartyrImagePath": <url id="path">images/martyr/martyr_image.jpg</url>
+    "MartyrImagePath": {{ apiUrl }}images/martyr/martyr_image.jpg
 }
         </code></pre>
                     <p>For the martyr ID transaction, you need to make a GET call to the URL below :
                         <br>
-                        <code class="higlighted" id="path">martyr/:MartyrID</code>
+                        <code class="higlighted">{{ apiUrl }}martyr/:MartyrID</code>
                     </p>
                 </div>
                 
